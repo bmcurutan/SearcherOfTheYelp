@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
   
@@ -55,6 +55,18 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navigationController = segue.destination as! UINavigationController
+        let filtersViewController = navigationController.topViewController as! FiltersViewController
+        
+        filtersViewController.delegate = self
+    }
+}
+    
+extension BusinessesViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return businesses?.count ?? 0
     }
@@ -64,17 +76,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         cell.business = businesses[indexPath.row]
         return cell
     }
-    
-     // MARK: - Navigation
-     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let navigationController = segue.destination as! UINavigationController
-        let filtersViewController = navigationController.topViewController as! FiltersViewController
-        
-        filtersViewController.delegate = self
-     }
- 
-    // MARK: - FiltersViewControllerDelegate
+}
+
+extension BusinessesViewController: FiltersViewControllerDelegate {
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject]) {
         

@@ -12,7 +12,7 @@ import UIKit
     @objc optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
 }
 
-class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
+class FiltersViewController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: FiltersViewControllerDelegate?
@@ -66,8 +66,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             ["name": "French", "code": "french"]
         ]
     }
-    
-    // MARK: - UITableViewDataSource
+}
+
+extension FiltersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
@@ -83,23 +84,13 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
-    
-    // MARK: - SwitchCellDelegate
+}
+
+extension FiltersViewController: SwitchCellDelegate {
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
         
         switchStates[indexPath.row] = value
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
