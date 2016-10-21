@@ -21,6 +21,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         
         searchBar = UISearchBar()
         searchBar.delegate = self
+        searchBar.placeholder = "Search..."
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
         doSearch()
@@ -30,7 +31,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+        /*Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
             self.tableView.reloadData()
@@ -43,7 +44,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
             }
             
             }
-        )
+        )*/
+        doSearch()
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -76,23 +78,24 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
     
     fileprivate func doSearch() {
         
-        MBProgressHUD.showAdded(to: self.view, animated: true)
+        // TODO MBProgressHUD.showAdded(to: self.view, animated: true)
         
-        /*GithubRepo.fetchRepos(searchSettings, successCallback: { (newRepos) -> Void in
-         self.repos = newRepos
-         
-         // Print the returned repositories to the output window
-         for repo in newRepos {
-         print(repo)
-         }*/
-        
-        tableView.reloadData()
-        
-        MBProgressHUD.hide(for: self.view, animated: true)
-        /*}, error: { (error) -> Void in
-         print(error)
-         })*/
-    }    
+        Business.searchWithTerm(term: "Bars", sort: nil, categories: nil /* TODO ["asianfusion", "burgers"]*/, deals: true, completion: { (businesses: [Business]?, error: Error?) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
+            
+            if let businesses = businesses {
+                for business in businesses {
+                    print(business.name!)
+                    print(business.address!)
+                }
+            }
+            
+            // TODO MBProgressHUD.hide(for: self.view, animated: true)
+            /*}, error: { (error) -> Void in
+                print(error)*/
+        })
+    }
 }
     
 extension BusinessesViewController: UITableViewDataSource {
