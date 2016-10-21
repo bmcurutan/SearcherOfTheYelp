@@ -71,6 +71,28 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         
         filtersViewController.delegate = self
     }
+    
+    // MARK: - Private Methods
+    
+    fileprivate func doSearch() {
+        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        
+        /*GithubRepo.fetchRepos(searchSettings, successCallback: { (newRepos) -> Void in
+         self.repos = newRepos
+         
+         // Print the returned repositories to the output window
+         for repo in newRepos {
+         print(repo)
+         }*/
+        
+        tableView.reloadData()
+        
+        MBProgressHUD.hide(for: self.view, animated: true)
+        /*}, error: { (error) -> Void in
+         print(error)
+         })*/
+    }    
 }
     
 extension BusinessesViewController: UITableViewDataSource {
@@ -121,26 +143,3 @@ extension BusinessesViewController: UISearchBarDelegate {
         doSearch()
     }
 }
-
-// MARK: - Private Methods
-
-fileprivate func doSearch() {
-    
-    MBProgressHUD.showAdded(to: self.view, animated: true)
-    
-    /*GithubRepo.fetchRepos(searchSettings, successCallback: { (newRepos) -> Void in
-        self.repos = newRepos
-        
-        // Print the returned repositories to the output window
-        for repo in newRepos {
-            print(repo)
-        }*/
-        
-        tableView.reloadData()
-        
-        MBProgressHUD.hide(for: self.view, animated: true)
-        /*}, error: { (error) -> Void in
-            print(error)
-    })*/
-}
-
