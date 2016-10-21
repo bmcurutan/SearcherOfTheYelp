@@ -15,6 +15,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
   
     var businesses: [Business]!
     var searchBar: UISearchBar!
+    var searchSettings = SearchSettings()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         searchBar.placeholder = "Search..."
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
-        doSearch()
+        doSearch(searchSettings)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -45,7 +46,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
             
             }
         )*/
-        doSearch()
+        doSearch(searchSettings)
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -76,11 +77,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
     
     // MARK: - Private Methods
     
-    fileprivate func doSearch() {
+    fileprivate func doSearch(_ settings: SearchSettings) {
         
         // TODO MBProgressHUD.showAdded(to: self.view, animated: true)
         
-        Business.searchWithTerm(term: "Bars", sort: nil, categories: nil /* TODO ["asianfusion", "burgers"]*/, deals: true, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: settings.searchString!, sort: nil, categories: nil /* TODO ["asianfusion", "burgers"]*/, deals: true, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
             
@@ -141,8 +142,8 @@ extension BusinessesViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // searchSettings.searchString = searchBar.text
+        searchSettings.searchString = searchBar.text
         searchBar.resignFirstResponder()
-        doSearch()
+        doSearch(searchSettings)
     }
 }
