@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Timothy Lee. All rights reserved.
 //
 
+import MBProgressHUD
 import UIKit
 
 class BusinessesViewController: UIViewController, UITableViewDelegate {
@@ -13,9 +14,16 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
   
     var businesses: [Business]!
+    var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
+        doSearch()
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -89,3 +97,50 @@ extension BusinessesViewController: FiltersViewControllerDelegate {
         })
     }
 }
+
+extension BusinessesViewController: UISearchBarDelegate {
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(true, animated: true)
+        return true;
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(false, animated: true)
+        return true;
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // searchSettings.searchString = searchBar.text
+        searchBar.resignFirstResponder()
+        doSearch()
+    }
+}
+
+// MARK: - Private Methods
+
+fileprivate func doSearch() {
+    
+    MBProgressHUD.showAdded(to: self.view, animated: true)
+    
+    /*GithubRepo.fetchRepos(searchSettings, successCallback: { (newRepos) -> Void in
+        self.repos = newRepos
+        
+        // Print the returned repositories to the output window
+        for repo in newRepos {
+            print(repo)
+        }*/
+        
+        tableView.reloadData()
+        
+        MBProgressHUD.hide(for: self.view, animated: true)
+        /*}, error: { (error) -> Void in
+            print(error)
+    })*/
+}
+

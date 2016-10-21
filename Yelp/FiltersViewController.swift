@@ -60,7 +60,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
     
     // MARK: - Private Methods
     
-    func yelpCategories() -> [[String:String]] {
+    fileprivate func yelpCategories() -> [[String:String]] {
         return [
             ["name": "Afghan", "code": "afghani"],
             ["name": "French", "code": "french"]

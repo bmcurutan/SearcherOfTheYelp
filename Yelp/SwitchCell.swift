@@ -32,7 +32,7 @@ class SwitchCell: UITableViewCell {
     
     // MARK: - Private Methods
     
-    func switchValueChanged() {
+    fileprivate func switchValueChanged() {
         delegate?.switchCell?(switchCell: self, didChangeValue: onSwitch.isOn)
     }
 
