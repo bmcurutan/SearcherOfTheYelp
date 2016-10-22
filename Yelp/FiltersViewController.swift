@@ -27,6 +27,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
     
     var categories: [[String:String]]!
     var deals: Bool = false
+    var distances = [Int:Bool]()
     var switchStates = [Int:Bool]()
     
     override func viewDidLoad() {
@@ -262,14 +263,28 @@ extension FiltersViewController: UITableViewDataSource {
             cell.switchLabel.text = "Offering a Deal"
             cell.onSwitch.isOn = false
             return cell
+            
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath) as! DropdownCell
-            cell.dropdownLabel.text = "Auto"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath)
+            switch (indexPath.row) {
+            case 1:
+                cell.textLabel?.text = "0.3 miles"
+            case 2:
+                cell.textLabel?.text = "1 mile"
+            case 3:
+                cell.textLabel?.text = "5 miles"
+            case 4:
+                cell.textLabel?.text = "20 miles"
+            default:
+                cell.textLabel?.text = "Auto"
+            }
             return cell
+            
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath) as! DropdownCell
             cell.dropdownLabel.text = "Best Match"
             return cell
+            
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = categories[indexPath.row]["name"]
@@ -281,6 +296,8 @@ extension FiltersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
+        case 1:
+            return 5
         case 3:
             return 4
         default:
