@@ -172,6 +172,37 @@
                                             <outlet property="switchLabel" destination="Yyc-jl-ej5" id="gC8-na-lv9"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DropdownCell" rowHeight="75" id="xnO-Km-waW" customClass="DropdownCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="167" width="375" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xnO-Km-waW" id="Dls-v3-C71">
+                                            <frame key="frameInset" width="375" height="74"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0KD-bM-N6K">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hsd-lg-Jt1">
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="Vht-RH-OAa"/>
+                                                        <constraint firstAttribute="height" constant="30" id="oS3-fE-YCf"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0KD-bM-N6K" firstAttribute="leading" secondItem="Dls-v3-C71" secondAttribute="leadingMargin" constant="8" id="P7o-iI-JcC"/>
+                                                <constraint firstItem="Hsd-lg-Jt1" firstAttribute="centerY" secondItem="Dls-v3-C71" secondAttribute="centerY" id="Zdj-ZM-5IX"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Hsd-lg-Jt1" secondAttribute="trailing" constant="8" id="orG-gs-B10"/>
+                                                <constraint firstItem="0KD-bM-N6K" firstAttribute="centerY" secondItem="Dls-v3-C71" secondAttribute="centerY" id="rZC-ka-P2o"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dropdownLabel" destination="0KD-bM-N6K" id="FkK-z9-uRe"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
