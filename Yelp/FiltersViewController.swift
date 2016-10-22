@@ -249,6 +249,7 @@ extension FiltersViewController: UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = "Offering a Deal"
+            cell.onSwitch.isOn = false
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath) as! DropdownCell
