@@ -80,43 +80,55 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
             ["name": "Asian Fusion", "code": "asianfusion"],
             ["name": "Australian", "code": "australian"],
             ["name": "Austrian", "code": "austrian"],
+            
             ["name": "Bangladeshi", "code": "bangladeshi"],
             ["name": "Barbeque", "code": "bbq"],
             ["name": "Basque", "code": "basque"],
             ["name": "Belgian", "code": "belgian"],
+            ["name": "Bistros", "code": "bistros"],
+            ["name": "Brasseries", "code": "brasseries"],
+            ["name": "Brazilian", "code": "brazilian"],
+            ["name": "Breakfast & Brunch", "code": "breakfast_brunch"],
+            ["name": "British", "code": "british"],
+            ["name": "Buffets", "code": "buffets"],
+            ["name": "Burgers", "code": "burgers"],
+            ["name": "Burmese", "code": "burmese"],
+            
+            ["name": "Cafes", "code": "cafes"],
+            ["name": "Cambodian", "code": "cambodian"],
+            ["name": "Canadian (New)", "code": "newcanadian"],
+            ["name": "Caribbean", "code": "caribbean"],
+            ["name": "Cheesesteaks", "code": "cheesesteaks"],
+            ["name": "Chicken Shop", "code": "chickenshop"],
+            ["name": "Chicken Wings", "code": "chicken_wings"],
+            ["name": "Chinese", "code": "chinese"],
+            ["name": "Comfort Food", "code": "comfortfood"],
+            ["name": "Creperies", "code": "creperies"],
+            ["name": "Cuban", "code": "cuban"],
+            ["name": "Czech", "code": "czech"],
+            
+            ["name": "Delis", "code": "delis"],
+            ["name": "Diners", "code": "diners"],
+            ["name": "Dinner Theater", "code": "dinnertheater"],
+            ["name": "Ethiopian", "code": "ethiopian"],
+            
+            ["name": "Fast Food", "code": "hotdogs"],
+            ["name": "Filipino", "code": "filipino"],
+            ["name": "Fish & Chips", "code": "fishnchips"],
+            ["name": "Fondue", "code": "fondue"],
+            ["name": "Food Court", "code": "food_court"],
             
 
-            Bistros (bistros)
-            Brasseries (brasseries)
-            Brazilian (brazilian)
-            Breakfast & Brunch (breakfast_brunch)
-            British (british)
-            Buffets (buffets)
-            Burgers (burgers)
-            Burmese (burmese)
-            Cafes (cafes)
-            Cajun/Creole (cajun)
-            Cambodian (cambodian)
-            Canadian (New) (newcanadian)
-            Caribbean (caribbean)
-            
-            Cheesesteaks (cheesesteaks)
-            Chicken Shop (chickenshop)
-            Chicken Wings (chicken_wings)
-            Chinese (chinese)
-            Comfort Food (comfortfood)
-            Creperies (creperies)
-            Cuban (cuban)
-            Czech (czech)
-            Delis (delis)
-            Diners (diners)
-            Dinner Theater (dinnertheater)
-            Ethiopian (ethiopian)
-            Fast Food (hotdogs)
-            Filipino (filipino)
-            Fish & Chips (fishnchips)
-            Fondue (fondue)
-            Food Court (food_court)
+             ()
+             ()
+             ()
+             ()
+             ()
+             ()
+             ()
+             ()
+             ()
+             ()
             Food Stands (foodstands)
             French (french)
 
