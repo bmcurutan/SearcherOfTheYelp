@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UFK-8F-Toe" id="5CI-94-0Rv">
-                                            <frame key="frameInset" width="375" height="110"/>
+                                            <frame key="frameInset" width="375" height="110.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uN9-yl-c9a">
@@ -117,7 +117,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Yelp" id="cNY-mq-h7D">
-                        <barButtonItem key="leftBarButtonItem" title="Filters" id="zcw-Xn-Xwc">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="zcw-Xn-Xwc">
                             <connections>
                                 <segue destination="kg1-Ay-xan" kind="presentation" id="4kw-wh-BoD"/>
                             </connections>
@@ -131,7 +131,7 @@
             </objects>
             <point key="canvasLocation" x="2727.1999999999998" y="357.57121439280365"/>
         </scene>
-        <!--Filters-->
+        <!--Filter-->
         <scene sceneID="npB-Bf-Ln7">
             <objects>
                 <viewController id="ZUc-hc-Uoi" customClass="FiltersViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -150,7 +150,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fGL-bu-GkY" id="XlE-YH-qDl">
-                                            <frame key="frameInset" width="375" height="74"/>
+                                            <frame key="frameInset" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yyc-jl-ej5">
@@ -183,7 +183,7 @@
                             <constraint firstItem="x5Y-Fd-KNW" firstAttribute="leading" secondItem="sPn-Xy-9PR" secondAttribute="leading" id="gnL-Td-3oK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Filters" id="ULa-uV-yi9">
+                    <navigationItem key="navigationItem" title="Filter" id="ULa-uV-yi9">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="GSn-Yd-7Uk">
                             <connections>
                                 <action selector="onCancelButton:" destination="ZUc-hc-Uoi" id="8W2-pg-Ev4"/>

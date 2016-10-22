@@ -22,7 +22,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         
         searchBar = UISearchBar()
         searchBar.delegate = self
-        searchBar.placeholder = "Search..."
+        searchBar.placeholder = "Restaurants"
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
         doSearch(searchSettings)
@@ -93,8 +93,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
             }
             
             // TODO MBProgressHUD.hide(for: self.view, animated: true)
-            /*}, error: { (error) -> Void in
-                print(error)*/
         })
     }
 }

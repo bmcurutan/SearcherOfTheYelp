@@ -84,6 +84,23 @@ extension FiltersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch (section) {
+            case 1:
+                return "Distance"
+            case 2:
+                return "Sort By"
+            case 3:
+                return "Category"
+            default:
+                return ""
+        }
+    }
 }
 
 extension FiltersViewController: SwitchCellDelegate {

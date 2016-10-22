@@ -8,10 +8,21 @@
 
 import UIKit
 
-struct SearchSettings {
+class SearchSettings {
+    
+    var category: String?
+    var deals: Bool?
+    var distance: Int?
     var searchString: String?
+    var sort: Int? // 0 = Best matched (Yelp default), 1 = Distance, 2 = Highest Rated
+    
+    final var maxDistance = 40000 // 40000 meters = 25 miles
     
     init() {
-        searchString = String()
+        category = String()
+        deals = false
+        distance = maxDistance
+        searchString = "Restaurants"
+        sort = 0
     }
 }
