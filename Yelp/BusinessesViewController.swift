@@ -112,10 +112,14 @@ extension BusinessesViewController: UITableViewDataSource {
 
 extension BusinessesViewController: FiltersViewControllerDelegate {
     
+    // TODO Fix SearchSettings abstraction instead of using filters dictionary
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject]) {
         
+        let sort = filters["sort"] as? YelpSortMode ?? YelpSortMode.bestMatched
+        let deals = filters["deals"] as? Bool ?? false
+        // TODO add distance
         let categories = filters["categories"] as? [String]
-        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Restaurants", sort: sort, categories: categories, deals: deals, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         })

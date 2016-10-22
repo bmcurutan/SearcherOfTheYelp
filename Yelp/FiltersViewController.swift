@@ -26,6 +26,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
     weak var delegate: FiltersViewControllerDelegate?
     
     var categories: [[String:String]]!
+    var deals: Bool = false
     var switchStates = [Int:Bool]()
     
     override func viewDidLoad() {
@@ -52,6 +53,16 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
         dismiss(animated: true, completion: nil)
         var filters = [String:AnyObject]()
         
+        // Deals
+        filters["deals"] = deals as AnyObject?
+        
+        // TODO Distance
+        filters["distance"] = 40000 as AnyObject?
+        
+        // TODO Sort
+        filters["sort"] = YelpSortMode.bestMatched as AnyObject?
+
+        // Categories
         var selectedCategories = [String]()
         for (row, isSelected) in switchStates {
             if isSelected {
@@ -300,6 +311,11 @@ extension FiltersViewController: SwitchCellDelegate {
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
         
-        switchStates[indexPath.row] = value
+        switch (indexPath.section) {
+        case 0:
+            deals = value
+        default:
+            switchStates[indexPath.row] = value
+        }
     }
 }
