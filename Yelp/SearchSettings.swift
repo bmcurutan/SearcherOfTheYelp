@@ -10,7 +10,7 @@ import UIKit
 
 class SearchSettings {
     
-    var category: String?
+    var categories: String?
     var deals: Bool?
     var distance: Int?
     var searchString: String?
@@ -19,7 +19,7 @@ class SearchSettings {
     final var maxDistance = 40000 // 40000 meters = 25 miles
     
     init() {
-        category = String()
+        categories = String()
         deals = false
         distance = maxDistance
         searchString = "Restaurants"

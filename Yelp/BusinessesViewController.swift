@@ -81,6 +81,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         
         // TODO MBProgressHUD.showAdded(to: self.view, animated: true)
         
+        // TODO abstract search settings
         Business.searchWithTerm(term: settings.searchString!, sort: nil, categories: nil /* TODO ["asianfusion", "burgers"]*/, deals: true, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()

@@ -9,7 +9,7 @@
 import UIKit
 
 //
-//  SwitchCell.swift
+//  DropdownCell.swift
 //  Yelp
 //
 //  Created by Bianca Curutan on 10/20/16.
