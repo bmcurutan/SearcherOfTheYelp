@@ -32,33 +32,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
-        /*Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
-            
-            self.businesses = businesses
-            self.tableView.reloadData()
-            
-            if let businesses = businesses {
-                for business in businesses {
-                    print(business.name!)
-                    print(business.address!)
-                }
-            }
-            
-            }
-        )*/
         doSearch(searchSettings)
-        
-        /* Example of Yelp search with more search options specified
-         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-         self.businesses = businesses
-         
-         for business in businesses {
-         print(business.name!)
-         print(business.address!)
-         }
-         }
-         */
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,7 +56,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         // TODO MBProgressHUD.showAdded(to: self.view, animated: true)
         
         // TODO abstract search settings
-        Business.searchWithTerm(term: settings.searchString!, sort: nil, categories: nil /* TODO ["asianfusion", "burgers"]*/, deals: true, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: settings.searchString!, sort: nil, categories: nil /* TODO ["asianfusion", "burgers"]*/, deals: true, distance: settings.distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
             
@@ -118,9 +92,9 @@ extension BusinessesViewController: FiltersViewControllerDelegate {
         
         let sort = filters["sort"] as? YelpSortMode ?? YelpSortMode.bestMatched
         let deals = filters["deals"] as? Bool ?? false
-        // TODO add distance
+        let distance = filters["distance"] as? Int ?? 40000
         let categories = filters["categories"] as? [String]
-        Business.searchWithTerm(term: "Restaurants", sort: sort, categories: categories, deals: deals, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Restaurants", sort: sort, categories: categories, deals: deals, distance: distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         })

@@ -27,7 +27,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
     
     var categories: [[String:String]]!
     var deals: Bool = false
-    var distances = [Int:Bool]()
+    var distanceArray = ["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"] // TODO clean up
+    var distances: [String:Int]! = ["Auto":40000, "0.3 miles":482, "1 mile":1609, "5 miles":8046, "20 miles":32186]
+    var selectedDistance: Int = 40000 // Default to Auto, 40000 m
     var switchStates = [Int:Bool]()
     
     override func viewDidLoad() {
@@ -58,7 +60,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
         filters["deals"] = deals as AnyObject?
         
         // TODO Distance
-        filters["distance"] = 40000 as AnyObject?
+        filters["distance"] = selectedDistance as AnyObject?
         
         // TODO Sort
         filters["sort"] = YelpSortMode.bestMatched as AnyObject?
@@ -265,25 +267,14 @@ extension FiltersViewController: UITableViewDataSource {
             return cell
             
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath)
-            switch (indexPath.row) {
-            case 1:
-                cell.textLabel?.text = "0.3 miles"
-            case 2:
-                cell.textLabel?.text = "1 mile"
-            case 3:
-                cell.textLabel?.text = "5 miles"
-            case 4:
-                cell.textLabel?.text = "20 miles"
-            default:
-                cell.textLabel?.text = "Auto"
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SelectionCell", for: indexPath)
+            cell.textLabel?.text = distanceArray[indexPath.row]
             return cell
             
-        case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath) as! DropdownCell
+        /*case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath)
             cell.dropdownLabel.text = "Best Match"
-            return cell
+            return cell*/
             
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
@@ -321,6 +312,19 @@ extension FiltersViewController: UITableViewDataSource {
             return ""
         }
     }
+    
+    // TODO FIX warning and remove objc, make sure switch cells aren't selectable
+    @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell = tableView.cellForRow(at: indexPath)
+        selectedCell?.accessoryType = .checkmark
+        selectedDistance = distances["\(distanceArray[indexPath.row])"]!
+    }
+    
+    @objc(tableView:didDeselectRowAtIndexPath:) func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let deselectedCell = tableView.cellForRow(at: indexPath)
+        deselectedCell?.accessoryType = .none
+    }
+
 }
 
 extension FiltersViewController: SwitchCellDelegate {
