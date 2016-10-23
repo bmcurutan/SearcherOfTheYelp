@@ -265,6 +265,7 @@ extension FiltersViewController: UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = "Offering a Deal"
+            cell.delegate = self
             cell.onSwitch.isOn = false
             return cell
             
