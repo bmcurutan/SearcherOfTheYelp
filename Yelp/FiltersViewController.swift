@@ -30,6 +30,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
     var distanceArray = ["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"] // TODO clean up
     var distances: [String:Int]! = ["Auto":40000, "0.3 miles":482, "1 mile":1609, "5 miles":8046, "20 miles":32186]
     var selectedDistance: Int = 40000 // Default to Auto, 40000 m
+    var sorts: [String] = ["Best Matched", "Distance", "Highest Rated"]
+    var selectedSort: Int = 0
     var switchStates = [Int:Bool]()
     
     override func viewDidLoad() {
@@ -59,11 +61,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
         // Deals
         filters["deals"] = deals as AnyObject?
         
-        // TODO Distance
+        // Distance
         filters["distance"] = selectedDistance as AnyObject?
         
-        // TODO Sort
-        filters["sort"] = YelpSortMode.bestMatched as AnyObject?
+        // Sort
+        filters["sort"] = YelpSortMode(rawValue: selectedSort) as AnyObject?
 
         // Categories
         var selectedCategories = [String]()
@@ -267,14 +269,14 @@ extension FiltersViewController: UITableViewDataSource {
             return cell
             
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SelectionCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath)
             cell.textLabel?.text = distanceArray[indexPath.row]
             return cell
             
-        /*case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath)
-            cell.dropdownLabel.text = "Best Match"
-            return cell*/
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SortCell", for: indexPath)
+            cell.textLabel?.text = sorts[indexPath.row]
+            return cell
             
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
@@ -289,6 +291,8 @@ extension FiltersViewController: UITableViewDataSource {
         switch (section) {
         case 1:
             return 5
+        case 2:
+            return 3
         case 3:
             return 4
         default:
@@ -314,10 +318,15 @@ extension FiltersViewController: UITableViewDataSource {
     }
     
     // TODO FIX warning and remove objc, make sure switch cells aren't selectable
+    // TODO fix UI changes when distance/sort cells are selected (should be able to select both at the same time)
     @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = tableView.cellForRow(at: indexPath)
         selectedCell?.accessoryType = .checkmark
-        selectedDistance = distances["\(distanceArray[indexPath.row])"]!
+        if ("DistanceCell" == selectedCell?.reuseIdentifier) {
+            selectedDistance = distances["\(distanceArray[indexPath.row])"]!
+        } else if ("SortCell" == selectedCell?.reuseIdentifier) {
+            selectedSort = indexPath.row
+        }
     }
     
     @objc(tableView:didDeselectRowAtIndexPath:) func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
