@@ -192,6 +192,36 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DropdownCell" rowHeight="75" id="cH7-fk-up1" customClass="DropdownCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="242" width="375" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cH7-fk-up1" id="B2A-2l-pOy">
+                                            <frame key="frameInset" width="375" height="74"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRo-65-2Tf">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="kDD-J9-h8N">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="0MG-ux-0zv"/>
+                                                        <constraint firstAttribute="width" constant="32" id="ozc-Gs-FMY"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="kDD-J9-h8N" secondAttribute="trailing" constant="14" id="9Pl-52-4J6"/>
+                                                <constraint firstItem="eRo-65-2Tf" firstAttribute="leading" secondItem="B2A-2l-pOy" secondAttribute="leadingMargin" constant="14" id="Kwg-mQ-uij"/>
+                                                <constraint firstItem="kDD-J9-h8N" firstAttribute="centerY" secondItem="B2A-2l-pOy" secondAttribute="centerY" id="Vof-tV-9QC"/>
+                                                <constraint firstItem="eRo-65-2Tf" firstAttribute="centerY" secondItem="B2A-2l-pOy" secondAttribute="centerY" id="bPI-mu-xer"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dropdownLabel" destination="eRo-65-2Tf" id="Ow2-Vt-REl"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -358,4 +388,7 @@
             <point key="canvasLocation" x="3524" y="987.25637181409309"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="down-arrow" width="32" height="32"/>
+    </resources>
 </document>

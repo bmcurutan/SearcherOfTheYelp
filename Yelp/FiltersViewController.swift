@@ -33,6 +33,8 @@ class FiltersViewController: UIViewController {
     var categoryStates = [Int:Bool]()
     
     // Expand variables
+    var distanceExpanded: Bool = false
+    var sortExpanded: Bool = false
     var categoriesExpanded: Bool = false
     
     override func viewDidLoad() {
@@ -295,6 +297,12 @@ extension FiltersViewController: UITableViewDataSource {
             return cell
             
         case FilterSection.distance:
+            if !distanceExpanded && 0 == indexPath.row {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath) as! DropdownCell
+                cell.dropdownLabel.text = distances[indexPath.row]["name"] as? String
+                return cell
+            }
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = distances[indexPath.row]["name"] as? String
             cell.delegate = self
@@ -302,6 +310,12 @@ extension FiltersViewController: UITableViewDataSource {
             return cell
             
         case FilterSection.sort:
+            if !sortExpanded && 0 == indexPath.row {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath) as! DropdownCell
+                cell.dropdownLabel.text = sorts[indexPath.row]["name"] as? String
+                return cell
+            }
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = sorts[indexPath.row]["name"] as? String
             cell.delegate = self
@@ -325,9 +339,9 @@ extension FiltersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch FilterSection(rawValue: section)! {
         case FilterSection.distance:
-            return distances.count
+            return (distanceExpanded ? distances.count : 1)
         case FilterSection.sort:
-            return sorts.count
+            return (sortExpanded ? sorts.count : 1)
         case FilterSection.categories:
             return (categoriesExpanded ? categories.count : 5)
         case FilterSection.deals:
@@ -372,6 +386,18 @@ extension FiltersViewController: UITableViewDelegate {
         if "SeeAllCell" == cell.reuseIdentifier {
             categoriesExpanded = true
             tableView.reloadSections(NSIndexSet(index: FilterSection.categories.rawValue) as IndexSet, with: .none)
+            
+        } else if "DropdownCell" == cell.reuseIdentifier {
+            switch FilterSection(rawValue:indexPath.section)! {
+            case FilterSection.distance:
+                distanceExpanded = true
+                tableView.reloadSections(NSIndexSet(index: FilterSection.distance.rawValue) as IndexSet, with: .none)
+            case FilterSection.sort:
+                sortExpanded = true
+                tableView.reloadSections(NSIndexSet(index: FilterSection.sort.rawValue) as IndexSet, with: .none)
+            default:
+                break
+            }
         }
     }
     

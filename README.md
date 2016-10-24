@@ -2,7 +2,7 @@
 
 Searcher Of The Yelp is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: 16 hours spent in total
+Time spent: 17 hours spent in total
 
 ## User Stories
 
@@ -38,8 +38,8 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. Better ways to implement "See All" cell and dropdown cells (as in distance and sort)
-2. Better ways to implement checkboxes and store data for distance and sort, since only one value should be stored (and shown as checked) at a time
+1. Better ways to implement the "See All" and dropdown cells (as in distance and sort). It would be cleaner to do it without all these switches and "if" checks.
+2. Better ways to implement checkboxes and store data for distance and sort (that isn't similar to storing the switch states), since only one value should be stored (and shown as checked) at a time. 
 
 ## Video Walkthrough
 
