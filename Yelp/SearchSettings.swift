@@ -28,7 +28,7 @@ class SearchSettings {
         self.sort = sort
     }
     
-    // Reset filters to default values - this is the assumed expected behavior when a new search term is used
+    // Reset filters to default values - this is the assumed behavior with a new search term
     func resetFiltersForNewSearch() {
         categories = []
         deals = false

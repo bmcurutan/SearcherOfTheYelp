@@ -102,6 +102,7 @@ class BusinessesViewController: UIViewController {
     
     fileprivate func doSearchWithOffset(_ offset: Int) {
     
+        isLoading = true
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
         SearchSettings.sharedInstance.resetFiltersForNewSearch()
@@ -115,16 +116,15 @@ class BusinessesViewController: UIViewController {
             }
             self.tableView.reloadData()
             
-            /* Used for testing
             if let businesses = businesses {
                 for business in businesses {
                     print(business.name!)
                     print(business.address!)
                 }
-            }*/
+            }
             
-            MBProgressHUD.hideAllHUDs(for: self.view, animated: true);
             self.isLoading = false
+            MBProgressHUD.hideAllHUDs(for: self.view, animated: true);
         })
     }
 }
@@ -145,7 +145,7 @@ extension BusinessesViewController: UITableViewDataSource {
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BlankCell", for: indexPath)
-            cell.textLabel?.text = "No Results Found"
+            cell.textLabel?.text = !isLoading ? "No Results Found" : ""
             return cell
         }
     }

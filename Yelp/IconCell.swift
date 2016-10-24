@@ -12,5 +12,4 @@ class IconCell: UITableViewCell {
 
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var phoneLabel: UILabel!
-
 }
