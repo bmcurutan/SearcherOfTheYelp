@@ -35,6 +35,7 @@ The following **additional** features are implemented:
 - [x] Customized navigation bar to better match Yelp mock
 - [x] Added loading icon on businesses list page
 - [x] Abstracted search settings into a separate model to hide implementation details. There's a singleton which can be later developed to save settings across the app instead of re-entering them every time. Assumptions: Default search term is "Restaurants" (as in the mock), and filters are reset when there's a new search.
+- [x] Search default search term "Restaurants" if UISearchBar text is cleared
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 

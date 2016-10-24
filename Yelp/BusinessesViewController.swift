@@ -135,6 +135,14 @@ extension BusinessesViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         doSearch()
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if "" == searchText {
+            SearchSettings.sharedInstance.searchString = "Restaurants"
+            searchBar.resignFirstResponder()
+            doSearch()
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate
