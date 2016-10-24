@@ -28,10 +28,10 @@ class FiltersViewController: UIViewController {
     
     // Default filter variables
     var deals: Bool = false
-    var selectedDistance: Int = maxDistance
     var selectedSort: Int = 0
     
     // State variables
+    var distanceStates: [Int:Bool] = [0: true] // Default to Auto
     var switchStates = [Int:Bool]()
     
     override func viewDidLoad() {
@@ -53,9 +53,17 @@ class FiltersViewController: UIViewController {
         dismiss(animated: true, completion: nil)
         
         SearchSettings.sharedInstance.deals = deals
-        SearchSettings.sharedInstance.distance = selectedDistance
         SearchSettings.sharedInstance.sort = YelpSortMode(rawValue: selectedSort)
 
+        // Distance 
+        SearchSettings.sharedInstance.distance = maxDistance
+        for (row, isSelected) in distanceStates {
+            if isSelected {
+                SearchSettings.sharedInstance.distance = distances[row]["meters"] as! Int
+                break
+            }
+        }
+        
         // Categories
         var selectedCategories = [String]()
         for (row, isSelected) in switchStates {
@@ -270,8 +278,10 @@ extension FiltersViewController: UITableViewDataSource {
             return cell
             
         case FilterSection.distance:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath)
-            cell.textLabel?.text = distances[indexPath.row]["name"] as? String
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+            cell.switchLabel.text = distances[indexPath.row]["name"] as? String
+            cell.delegate = self
+            cell.onSwitch.isOn = distanceStates[indexPath.row] ?? false
             return cell
             
         case FilterSection.sort:
@@ -279,7 +289,7 @@ extension FiltersViewController: UITableViewDataSource {
             cell.textLabel?.text = sorts[indexPath.row]
             return cell
             
-        default: // FilterSection.categories
+        case FilterSection.categories:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = categories[indexPath.row]["name"]
             cell.delegate = self
@@ -296,7 +306,7 @@ extension FiltersViewController: UITableViewDataSource {
             return 3
         case FilterSection.categories:
             return 4
-        default: // FilterSection.deals
+        case FilterSection.deals:
             return 1
         }
     }
@@ -324,7 +334,7 @@ extension FiltersViewController: UITableViewDataSource {
 extension FiltersViewController: UITableViewDelegate {
     
     // TODO fix UI changes when distance/sort cells are selected (should be able to select both at the same time)
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = tableView.cellForRow(at: indexPath)
         selectedCell?.accessoryType = .checkmark
         if ("DistanceCell" == selectedCell?.reuseIdentifier) {
@@ -337,7 +347,7 @@ extension FiltersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let deselectedCell = tableView.cellForRow(at: indexPath)
         deselectedCell?.accessoryType = .none
-    }
+    }*/
 }
 
 // MARK: - SwitchCellDelegate
@@ -350,8 +360,14 @@ extension FiltersViewController: SwitchCellDelegate {
         switch (FilterSection(rawValue:indexPath.section)!) {
         case FilterSection.deals:
             deals = value
-        default: // FilterSection.distance, FilterSection.sort, FilterSection.categories
+        case FilterSection.distance:
+            distanceStates = [Int:Bool]() // Reset distanceStates
+            distanceStates[indexPath.row] = value
+            tableView.reloadSections(NSIndexSet(index: FilterSection.distance.rawValue) as IndexSet, with: .none)
+        case FilterSection.categories:
             switchStates[indexPath.row] = value
+        default:
+            break
         }
     }
 }
