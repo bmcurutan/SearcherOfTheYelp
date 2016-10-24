@@ -2,7 +2,7 @@
 
 Searcher Of The Yelp is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: 17 hours spent in total
+Time spent: 18 hours spent in total
 
 ## User Stories
 
@@ -22,7 +22,7 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [ ] Search results page
-   - [ ] Infinite scroll for restaurant results.
+   - [x] Infinite scroll for restaurant results.
    - [ ] Implement map view of restaurant results.
 - [ ] Filter page
    - [ ] Implement a custom switch instead of the default UISwitch.
@@ -35,7 +35,7 @@ The following **additional** features are implemented:
 - [x] Customized navigation bar to better match Yelp mock
 - [x] Added loading icon on businesses list page
 - [x] Abstracted search settings into a separate model to hide implementation details. There's a singleton which can be later developed to save settings across the app instead of re-entering them every time. Assumptions: Default search term is "Restaurants" (as in the mock), and filters are reset when there's a new search.
-- [x] Search default search term "Restaurants" if UISearchBar text is cleared
+- [x] Search action on default search term "Restaurants" if UISearchBar text is cleared
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -52,10 +52,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-- I tended to over-complicate things with the UI for this app. In the end, at least as a first iteration, I implemented the "checkmark" cells using basic UISwitch and omitted the custom UISwitch task for now ("You can use the default UISwitch for on/off states").
+- I tended to over-complicate things with the UI for this app since I was focusing too much on the details (depth-first implementation instead of breadth-first). In the end, at least as a first iteration, I just implemented the "checkmark" cells using basic UISwitch and omitted the custom UISwitch task for now ("You can use the default UISwitch for on/off states").
 - I faced some challenges data storing for distance and sort since only one value per section should be stored at a time. From the UI side, sometimes a checkmark would only show up in one section and disappear from the other upon a selection action.
 - I would like to explore better ways to implement the "See All" and dropdown cell actions. For now, there are a bunch of switches and "if" checks that make these actions functional, but it would be a better learning experience to know a cleaner, less hacky way to do this. 
-
 
 ## License
 
