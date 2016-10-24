@@ -17,8 +17,22 @@ class Business: NSObject {
     let ratingImageURL: URL?
     let reviewCount: NSNumber?
     
+    var latitude: Double = 0
+    var longitude: Double = 0
+    
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
+        
+        if let location = dictionary["location"] as? NSDictionary,
+           let coordinate = location["coordinate"] as? NSDictionary {
+            if let latitudeNumber = coordinate["latitude"] as? NSNumber {
+                self.latitude = Double(latitudeNumber)
+            }
+            
+            if let longitudeNumber = coordinate["longitude"] as? NSNumber {
+                longitude = Double(longitudeNumber)
+            }
+        }
         
         let imageURLString = dictionary["image_url"] as? String
         if imageURLString != nil {

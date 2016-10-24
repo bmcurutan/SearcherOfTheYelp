@@ -82,6 +82,13 @@ class BusinessesViewController: UIViewController {
     
     // MARK: - Private Methods
     
+    fileprivate func addAnnotationAtCoordinate(_ coordinate: CLLocationCoordinate2D, title: String?) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = title
+        mapView.addAnnotation(annotation)
+    }
+    
     fileprivate func goToLocation(location: CLLocation) {
         let span = MKCoordinateSpanMake(0.1, 0.1)
         let region = MKCoordinateRegionMake(location.coordinate, span)
@@ -101,6 +108,9 @@ class BusinessesViewController: UIViewController {
             
             for business in businesses! {
                 self.businesses.append(business)
+                
+                let coordinate = CLLocationCoordinate2DMake(business.latitude, business.longitude)
+                self.addAnnotationAtCoordinate(coordinate, title: business.name)
             }
             self.tableView.reloadData()
             
