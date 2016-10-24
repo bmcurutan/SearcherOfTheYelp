@@ -357,6 +357,19 @@
                                     <constraint firstAttribute="height" constant="150" id="WNP-An-kL5"/>
                                 </constraints>
                             </mapView>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" selectionStyle="default" indentationWidth="10" translatesAutoresizingMaskIntoConstraints="NO" id="WpN-oZ-1ww">
+                                <frame key="frameInset" minX="10" minY="157" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WpN-oZ-1ww" id="8Fl-eV-K34">
+                                    <frame key="frameInset" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address details" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUr-N9-hpm">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -368,12 +381,15 @@
                             <constraint firstItem="JJX-aS-b8p" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" constant="8" id="91R-05-cVf"/>
                             <constraint firstAttribute="trailing" secondItem="FdV-Z7-1Fp" secondAttribute="trailing" constant="8" id="F2m-s3-gKS"/>
                             <constraint firstItem="JJX-aS-b8p" firstAttribute="top" secondItem="V7A-GQ-bkk" secondAttribute="bottom" constant="5" id="NZg-af-6Q9"/>
+                            <constraint firstItem="XUr-N9-hpm" firstAttribute="top" secondItem="5JT-r1-yLe" secondAttribute="bottom" constant="8" symbolic="YES" id="UPc-DS-6bg"/>
                             <constraint firstItem="FdV-Z7-1Fp" firstAttribute="top" secondItem="BIk-rE-ako" secondAttribute="bottom" constant="5" id="aav-EI-M5N"/>
                             <constraint firstItem="V7A-GQ-bkk" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" constant="8" id="emH-Au-hmx"/>
                             <constraint firstItem="V7A-GQ-bkk" firstAttribute="top" secondItem="C4g-BV-zwj" secondAttribute="bottom" constant="8" id="ftW-Xw-Xq6"/>
                             <constraint firstItem="Z1S-VY-5n5" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" constant="8" id="h6Y-4l-TUc"/>
                             <constraint firstItem="z9o-ty-a1b" firstAttribute="leading" secondItem="JJX-aS-b8p" secondAttribute="trailing" constant="5" id="ihc-2h-8IQ"/>
+                            <constraint firstItem="XUr-N9-hpm" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" constant="8" id="jR7-iu-BVj"/>
                             <constraint firstItem="5JT-r1-yLe" firstAttribute="top" secondItem="Z1S-VY-5n5" secondAttribute="bottom" constant="8" id="obn-5P-gHK"/>
+                            <constraint firstAttribute="trailing" secondItem="XUr-N9-hpm" secondAttribute="trailing" constant="8" id="qjs-Mg-mCk"/>
                             <constraint firstAttribute="trailing" secondItem="BIk-rE-ako" secondAttribute="trailing" constant="8" id="r80-op-U5r"/>
                             <constraint firstItem="Z1S-VY-5n5" firstAttribute="top" secondItem="JJX-aS-b8p" secondAttribute="bottom" constant="4" id="uyn-F3-smu"/>
                         </constraints>
@@ -386,6 +402,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addressLabel" destination="XUr-N9-hpm" id="7sR-Yd-sUW"/>
                         <outlet property="categoriesLabel" destination="Z1S-VY-5n5" id="qP3-G9-CD3"/>
                         <outlet property="distanceLabel" destination="BIk-rE-ako" id="eG1-rA-abT"/>
                         <outlet property="mapView" destination="5JT-r1-yLe" id="WCf-z9-IYM"/>

@@ -11,6 +11,7 @@ import UIKit
 
 class BusinessDetailsViewController: UIViewController {
     
+    @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var categoriesLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
@@ -23,6 +24,7 @@ class BusinessDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        addressLabel.text = business.address
         categoriesLabel.text = business.categories
         distanceLabel.text = business.distance
         nameLabel.text = business.name
