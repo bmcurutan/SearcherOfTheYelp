@@ -1,5 +1,5 @@
 //
-//  AddressCell.swift
+//  LabelCell.swift
 //  Yelp
 //
 //  Created by Bianca Curutan on 10/24/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddressCell: UITableViewCell {
+class LabelCell: UITableViewCell {
 
     @IBOutlet weak var addressLabel: UILabel!
 }

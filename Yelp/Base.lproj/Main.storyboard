@@ -227,7 +227,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="kDD-J9-h8N">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="0MG-ux-0zv"/>
-                                                        <constraint firstAttribute="width" constant="32" id="ozc-Gs-FMY"/>
+                                                        <constraint firstAttribute="width" constant="28" id="ozc-Gs-FMY"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -368,7 +368,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HIu-1i-rSo">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddressCell" id="eHc-Mr-wjC" customClass="AddressCell" customModule="Yelp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LabelCell" id="eHc-Mr-wjC" customClass="LabelCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eHc-Mr-wjC" id="peE-RU-zIt">
@@ -388,7 +388,40 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="addressLabel" destination="CvN-VR-e63" id="WiC-mr-zI9"/>
+                                            <outlet property="addressLabel" destination="CvN-VR-e63" id="7m6-nE-dMa"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IconCell" id="4We-ly-VXV" customClass="IconCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4We-ly-VXV" id="sAO-9S-cQW">
+                                            <frame key="frameInset" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVE-Xe-cEk">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone" translatesAutoresizingMaskIntoConstraints="NO" id="76y-bX-J8J">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="DHm-vI-UHp"/>
+                                                        <constraint firstAttribute="width" constant="20" id="meS-aw-0Dr"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hVE-Xe-cEk" firstAttribute="top" secondItem="sAO-9S-cQW" secondAttribute="top" constant="8" id="0gu-eF-XQD"/>
+                                                <constraint firstAttribute="bottom" secondItem="hVE-Xe-cEk" secondAttribute="bottom" constant="8" id="T5F-4G-hvk"/>
+                                                <constraint firstItem="hVE-Xe-cEk" firstAttribute="leading" secondItem="76y-bX-J8J" secondAttribute="trailing" constant="8" id="Ut4-Ts-Rfn"/>
+                                                <constraint firstItem="76y-bX-J8J" firstAttribute="leading" secondItem="sAO-9S-cQW" secondAttribute="leading" constant="8" id="j80-vV-rq8"/>
+                                                <constraint firstAttribute="trailing" secondItem="hVE-Xe-cEk" secondAttribute="trailing" constant="8" id="pdX-IY-iOs"/>
+                                                <constraint firstItem="76y-bX-J8J" firstAttribute="centerY" secondItem="sAO-9S-cQW" secondAttribute="centerY" id="yOX-RN-g1P"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="iconImageView" destination="76y-bX-J8J" id="qN6-nB-9WT"/>
+                                            <outlet property="phoneLabel" destination="hVE-Xe-cEk" id="4qV-r0-7cP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -460,5 +493,6 @@
     </scenes>
     <resources>
         <image name="down-arrow" width="32" height="32"/>
+        <image name="phone" width="32" height="32"/>
     </resources>
 </document>

@@ -72,9 +72,28 @@ extension BusinessDetailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCell", for: indexPath) as! AddressCell
-        cell.addressLabel.text = business.address
-        return cell
+        switch indexPath.section {
+        case 1: // phone
+            let cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: indexPath) as! IconCell
+            // cell.iconImageView
+            cell.phoneLabel.text = business.phone
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
+            cell.addressLabel.text = business.address
+            return cell
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        var count = 0
+        if business.address != nil {
+            count += 1
+        }
+        if business.phone != nil {
+            count += 1
+        }
+        return count
     }
 }
 

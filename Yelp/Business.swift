@@ -17,12 +17,14 @@ class Business: NSObject {
     let distance: String?
     let ratingImageURL: URL?
     let reviewCount: NSNumber?
+    let phone: String?
     
     var latitude: Double = 0
     var longitude: Double = 0
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
+        phone = dictionary["display_phone"] as? String
         
         if let location = dictionary["location"] as? NSDictionary,
            let coordinate = location["coordinate"] as? NSDictionary {
