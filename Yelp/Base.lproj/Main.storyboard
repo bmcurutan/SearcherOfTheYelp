@@ -352,12 +352,19 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5JT-r1-yLe">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="WNP-An-kL5"/>
+                                </constraints>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="BIk-rE-ako" firstAttribute="top" secondItem="C4g-BV-zwj" secondAttribute="bottom" constant="10" id="3eE-cF-MGl"/>
                             <constraint firstItem="BIk-rE-ako" firstAttribute="leading" secondItem="V7A-GQ-bkk" secondAttribute="trailing" constant="8" id="4Ca-x4-g2v"/>
                             <constraint firstItem="z9o-ty-a1b" firstAttribute="top" secondItem="V7A-GQ-bkk" secondAttribute="bottom" constant="5" id="5OY-Ta-s5j"/>
+                            <constraint firstAttribute="trailing" secondItem="5JT-r1-yLe" secondAttribute="trailing" id="8ih-eI-Cdg"/>
+                            <constraint firstItem="5JT-r1-yLe" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" id="8rq-XW-gdf"/>
                             <constraint firstItem="JJX-aS-b8p" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" constant="8" id="91R-05-cVf"/>
                             <constraint firstAttribute="trailing" secondItem="FdV-Z7-1Fp" secondAttribute="trailing" constant="8" id="F2m-s3-gKS"/>
                             <constraint firstItem="JJX-aS-b8p" firstAttribute="top" secondItem="V7A-GQ-bkk" secondAttribute="bottom" constant="5" id="NZg-af-6Q9"/>
@@ -366,6 +373,7 @@
                             <constraint firstItem="V7A-GQ-bkk" firstAttribute="top" secondItem="C4g-BV-zwj" secondAttribute="bottom" constant="8" id="ftW-Xw-Xq6"/>
                             <constraint firstItem="Z1S-VY-5n5" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" constant="8" id="h6Y-4l-TUc"/>
                             <constraint firstItem="z9o-ty-a1b" firstAttribute="leading" secondItem="JJX-aS-b8p" secondAttribute="trailing" constant="5" id="ihc-2h-8IQ"/>
+                            <constraint firstItem="5JT-r1-yLe" firstAttribute="top" secondItem="Z1S-VY-5n5" secondAttribute="bottom" constant="8" id="obn-5P-gHK"/>
                             <constraint firstAttribute="trailing" secondItem="BIk-rE-ako" secondAttribute="trailing" constant="8" id="r80-op-U5r"/>
                             <constraint firstItem="Z1S-VY-5n5" firstAttribute="top" secondItem="JJX-aS-b8p" secondAttribute="bottom" constant="4" id="uyn-F3-smu"/>
                         </constraints>
@@ -380,6 +388,7 @@
                     <connections>
                         <outlet property="categoriesLabel" destination="Z1S-VY-5n5" id="qP3-G9-CD3"/>
                         <outlet property="distanceLabel" destination="BIk-rE-ako" id="eG1-rA-abT"/>
+                        <outlet property="mapView" destination="5JT-r1-yLe" id="WCf-z9-IYM"/>
                         <outlet property="nameLabel" destination="V7A-GQ-bkk" id="bB6-dg-bi0"/>
                         <outlet property="ratingsImageView" destination="JJX-aS-b8p" id="7uZ-3f-DoX"/>
                         <outlet property="reviewsCountLabel" destination="z9o-ty-a1b" id="DYN-TS-eB0"/>
