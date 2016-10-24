@@ -32,6 +32,9 @@ class FiltersViewController: UIViewController {
     var sortStates: [Int:Bool] = [0: true] // Default to Best Matched
     var categoryStates = [Int:Bool]()
     
+    // Expand variables
+    var categoriesExpanded: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -306,6 +309,11 @@ extension FiltersViewController: UITableViewDataSource {
             return cell
             
         case FilterSection.categories:
+            if !categoriesExpanded && 4 == indexPath.row {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SeeAllCell", for: indexPath)
+                return cell
+            }
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = categories[indexPath.row]["name"]
             cell.delegate = self
@@ -321,7 +329,7 @@ extension FiltersViewController: UITableViewDataSource {
         case FilterSection.sort:
             return sorts.count
         case FilterSection.categories:
-            return 4
+            return (categoriesExpanded ? categories.count : 5)
         case FilterSection.deals:
             return 1
         }
@@ -354,6 +362,17 @@ extension FiltersViewController: UITableViewDelegate {
             return 40
         }
         return 0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Deselect row appearance after it has been selected
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let cell = self.tableView(tableView, cellForRowAt: indexPath)
+        if "SeeAllCell" == cell.reuseIdentifier {
+            categoriesExpanded = true
+            tableView.reloadSections(NSIndexSet(index: FilterSection.categories.rawValue) as IndexSet, with: .none)
+        }
     }
     
     /*func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
