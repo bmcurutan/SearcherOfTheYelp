@@ -9,7 +9,7 @@
 import MBProgressHUD
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate {
+class BusinessesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
   
@@ -34,18 +34,24 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         doSearch()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navigationController = segue.destination as! UINavigationController
-        if "filters" == segue.identifier {
+        
+        if "filtersSegue" == segue.identifier {
             let filtersViewController = navigationController.topViewController as! FiltersViewController
             filtersViewController.delegate = self
+            
+        } else if "detailsSegue" == segue.identifier {
+            let cell = sender as! BusinessCell
+            let indexPath = tableView.indexPath(for: cell)
+            
+            if let businesses = self.businesses {
+                let business = businesses[indexPath!.row]
+                let detailsViewController = navigationController.topViewController as! BusinessDetailsViewController
+                detailsViewController.business = business
+            }
         }
     }
     
@@ -53,7 +59,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
     
     fileprivate func doSearch() {
         
-        MBProgressHUD.showAdded(to: self.view, animated: true)
+        // tODO remove comment MBProgressHUD.showAdded(to: self.view, animated: true)
         
         SearchSettings.sharedInstance.resetFiltersForNewSearch()
         Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
@@ -128,5 +134,15 @@ extension BusinessesViewController: UISearchBarDelegate {
         SearchSettings.sharedInstance.searchString = searchBar.text
         searchBar.resignFirstResponder()
         doSearch()
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension BusinessesViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Deselect row appearance after it has been selected
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
