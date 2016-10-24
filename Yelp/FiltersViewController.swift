@@ -21,13 +21,17 @@ class FiltersViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: FiltersViewControllerDelegate?
     
+    // List variables
     var categories: [[String:String]]!
-    var deals: Bool = false
-    var distanceArray = ["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"] // TODO clean up
-    var distances: [String:Int]! = ["Auto":40000, "0.3 miles":482, "1 mile":1609, "5 miles":8046, "20 miles":32186]
-    var selectedDistance: Int = 40000 // Default to Auto, 40000 m
+    var distances: [[String:AnyObject]]!
     var sorts: [String] = ["Best Matched", "Distance", "Highest Rated"]
+    
+    // Default filter variables
+    var deals: Bool = false
+    var selectedDistance: Int = 40000 // Default to Auto, 40000 m
     var selectedSort: Int = 0
+    
+    // State variables
     var switchStates = [Int:Bool]()
     
     override func viewDidLoad() {
@@ -37,13 +41,8 @@ class FiltersViewController: UIViewController {
         tableView.delegate = self
         
         categories = yelpCategories()
+        distances = yelpDistances()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK - IBAction
     
     @IBAction func onCancelButton(_ sender: AnyObject) {
@@ -53,13 +52,8 @@ class FiltersViewController: UIViewController {
     @IBAction func onSearchButton(_ sender: AnyObject) {
         dismiss(animated: true, completion: nil)
         
-        // Deals
         SearchSettings.sharedInstance.deals = deals
-        
-        // Distance
         SearchSettings.sharedInstance.distance = selectedDistance
-        
-        // Sort
         SearchSettings.sharedInstance.sort = YelpSortMode(rawValue: selectedSort)
 
         // Categories
@@ -69,7 +63,7 @@ class FiltersViewController: UIViewController {
                 selectedCategories.append(categories[row]["code"]!)
             }
         }
-        
+
         if selectedCategories.count > 0 {
             SearchSettings.sharedInstance.categories = selectedCategories
         }
@@ -78,6 +72,14 @@ class FiltersViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    
+    fileprivate func yelpDistances() -> [[String:AnyObject]] {
+        return [["name" : "Auto" as AnyObject, "meters" : 40000 as AnyObject],
+                ["name" : "0.3 miles" as AnyObject, "meters" : 482 as AnyObject],
+                ["name" : "1 mile" as AnyObject, "meters" : 1609 as AnyObject],
+                ["name" : "5 miles" as AnyObject, "meters" : 8046 as AnyObject],
+                ["name" : "20 miles" as AnyObject, "meters" : 32186 as AnyObject]]
+    }
     
     fileprivate func yelpCategories() -> [[String:String]] {
         let categories = [["name" : "Afghan", "code": "afghani"],
@@ -268,7 +270,7 @@ extension FiltersViewController: UITableViewDataSource {
             
         case FilterSection.distance:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath)
-            cell.textLabel?.text = distanceArray[indexPath.row]
+            cell.textLabel?.text = distances[indexPath.row]["name"] as? String
             return cell
             
         case FilterSection.sort:
@@ -325,7 +327,7 @@ extension FiltersViewController: UITableViewDelegate {
         let selectedCell = tableView.cellForRow(at: indexPath)
         selectedCell?.accessoryType = .checkmark
         if ("DistanceCell" == selectedCell?.reuseIdentifier) {
-            selectedDistance = distances["\(distanceArray[indexPath.row])"]!
+            selectedDistance = distances[indexPath.row]["meters"] as! Int
         } else if ("SortCell" == selectedCell?.reuseIdentifier) {
             selectedSort = indexPath.row
         }
