@@ -383,7 +383,7 @@ extension FiltersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if nil != self.tableView(tableView, titleForHeaderInSection: section) {
-            return 50
+            return 45
         }
         return 0
     }
@@ -411,18 +411,16 @@ extension FiltersViewController: UITableViewDelegate {
         }
     }
     
-    /*func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if FilterSection.deals != FilterSection(rawValue: section)! {
-            let headerView = UIView(frame: CGRect(origin: CGPoint(x:0, y:0), size: CGSize(width: self.view.frame.width, height: 50)))
-            headerView.backgroundColor = UIColor.darkGray
-            
-            let label = UILabel(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: 30))
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if nil != self.tableView(tableView, titleForHeaderInSection: section) {
+            let headerView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.view.frame.width, height: 45)))
+            let label = UILabel(frame: CGRect(x: 0, y: 10, width: self.view.frame.width, height: 30))
             label.text = self.tableView(tableView, titleForHeaderInSection: section)
             headerView.addSubview(label)
             return headerView
         }
         return nil
-    }*/
+    }
 }
 
 // MARK: - SwitchCellDelegate
