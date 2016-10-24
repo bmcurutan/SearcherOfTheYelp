@@ -56,6 +56,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 - I tended to over-complicate things with the UI for this app since I was focusing too much on the details (depth-first implementation instead of breadth-first). In the end, at least as a first iteration, I just implemented the "checkmark" cells using basic UISwitch and omitted the custom UISwitch task for now ("You can use the default UISwitch for on/off states").
 - I faced some challenges data storing for distance and sort since only one value per section should be stored at a time. From the UI side, sometimes a checkmark would only show up in one section and disappear from the other upon a selection action.
 - I would like to explore better ways to implement the "See All" and dropdown cell actions. For now, there are a bunch of switches and "if" checks that make these actions functional, but it would be a better learning experience to know a cleaner, less hacky way to do this. 
+- I wasn't sure what the best way was to implement the checkmark UI. Using the built-in accessoryType caused some problems with the checkmarks all showing or only showing one for both sections (distance and sort). For now, implemented as a switch to show on/off state, but I should eventually customize the switch or use a custom button to show and not show the checkmarks for the selected and not selected items.
 
 ## License
 
