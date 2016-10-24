@@ -70,7 +70,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         })
     }
 }
-    
+
+// MARK: - UITableViewDataSource
+
 extension BusinessesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,9 +86,10 @@ extension BusinessesViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - FiltersViewControllerDelegate
+
 extension BusinessesViewController: FiltersViewControllerDelegate {
     
-    // TODO Fix SearchSettings abstraction instead of using filters dictionary
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: SearchSettings) {
         
         let sort = SearchSettings.sharedInstance.sort
@@ -100,6 +103,8 @@ extension BusinessesViewController: FiltersViewControllerDelegate {
         })
     }
 }
+
+// MARK: - UISearchBarDelegate
 
 extension BusinessesViewController: UISearchBarDelegate {
     

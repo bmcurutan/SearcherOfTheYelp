@@ -20,7 +20,7 @@ protocol FiltersViewControllerDelegate: class {
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: SearchSettings)
 }
 
-class FiltersViewController: UIViewController, UITableViewDelegate {
+class FiltersViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: FiltersViewControllerDelegate?
@@ -257,6 +257,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension FiltersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -316,10 +318,15 @@ extension FiltersViewController: UITableViewDataSource {
             return ""
         }
     }
+}
+
+// MARK: - UITableViewDelegate
+
+extension FiltersViewController: UITableViewDelegate {
     
     // TODO FIX warning and remove objc, make sure switch cells aren't selectable
     // TODO fix UI changes when distance/sort cells are selected (should be able to select both at the same time)
-    @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = tableView.cellForRow(at: indexPath)
         selectedCell?.accessoryType = .checkmark
         if ("DistanceCell" == selectedCell?.reuseIdentifier) {
@@ -329,12 +336,13 @@ extension FiltersViewController: UITableViewDataSource {
         }
     }
     
-    @objc(tableView:didDeselectRowAtIndexPath:) func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let deselectedCell = tableView.cellForRow(at: indexPath)
         deselectedCell?.accessoryType = .none
     }
-
 }
+
+// MARK: - SwitchCellDelegate
 
 extension FiltersViewController: SwitchCellDelegate {
     
