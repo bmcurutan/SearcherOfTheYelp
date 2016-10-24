@@ -32,7 +32,7 @@ class BusinessesViewController: UIViewController {
         searchBar.placeholder = "Restaurants"
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
-        doSearch()
+        doNewSearch()
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -45,7 +45,7 @@ class BusinessesViewController: UIViewController {
         goToLocation(centerLocation)
         mapView.isHidden = true
         
-        doSearch()
+        doNewSearch()
     }
     
     // MARK: - Navigation
@@ -96,11 +96,11 @@ class BusinessesViewController: UIViewController {
         mapView.setRegion(region, animated: false)
     }
     
-    fileprivate func doSearch() {
-        doSearchWithOffset(0)
+    fileprivate func doNewSearch() {
+        doSearchWithOffset(0, newSearch: true)
     }
     
-    fileprivate func doSearchWithOffset(_ offset: Int) {
+    fileprivate func doSearchWithOffset(_ offset: Int, newSearch: Bool) {
     
         isLoading = true
         MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -109,19 +109,24 @@ class BusinessesViewController: UIViewController {
         Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, offset: offset,
             completion: { (businesses: [Business]?, error: Error?) -> Void in
             
-            for business in businesses! {
-                self.businesses.append(business)
-                
-                let coordinate = CLLocationCoordinate2DMake(business.latitude, business.longitude)
-                self.addAnnotationAtCoordinate(coordinate, title: business.name, address: business.address)
-            }
-            self.tableView.reloadData()
-            
             if let businesses = businesses {
-                for business in businesses {
-                    print(business.name!)
-                    print(business.address!)
+                if newSearch {
+                    self.businesses = businesses
+                    
+                    for business in businesses {
+                        let coordinate = CLLocationCoordinate2DMake(business.latitude, business.longitude)
+                        self.addAnnotationAtCoordinate(coordinate, title: business.name, address: business.address)
+                    }
+                    
+                } else {
+                    for business in businesses {
+                        self.businesses.append(business)
+                        let coordinate = CLLocationCoordinate2DMake(business.latitude, business.longitude)
+                        self.addAnnotationAtCoordinate(coordinate, title: business.name, address: business.address)
+                    }
                 }
+                
+                self.tableView.reloadData()
             }
             
             self.isLoading = false
@@ -193,14 +198,14 @@ extension BusinessesViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         SearchSettings.sharedInstance.searchString = searchBar.text
         searchBar.resignFirstResponder()
-        doSearch()
+        doNewSearch()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if "" == searchText {
             SearchSettings.sharedInstance.searchString = "Restaurants"
             searchBar.resignFirstResponder()
-            doSearch()
+            doNewSearch()
         }
     }
 }
@@ -230,7 +235,7 @@ extension BusinessesViewController: UIScrollViewDelegate {
                 isLoading = true
                 offset += limit
                 
-                doSearchWithOffset(offset)
+                doSearchWithOffset(offset, newSearch: false)
             }
         }
     }

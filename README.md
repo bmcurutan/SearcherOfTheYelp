@@ -36,7 +36,8 @@ The following **additional** features are implemented:
 - [x] Added loading icon on businesses list page
 - [x] Abstracted search settings into a separate model to hide implementation details. There's a singleton which can be later developed to save settings across the app instead of re-entering them every time. Assumptions: Default search term is "Restaurants" (as in the mock), and filters are reset when there's a new search.
 - [x] Search action on default search term "Restaurants" if UISearchBar text is cleared.
-= [x] Added "No Results Found" cell if there are no businesses returned from the search or filter results.
+- [x] Added "No Results Found" cell if there are no businesses returned from the search or filter results.
+- [x] Based on the search term implementation, don't need to just search for restaurants; can also search for other places, like "Store"
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -47,7 +48,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/WCezSt7.gif' title='Searcher of the Yelp Video Walkthrough' width='' alt='Searcher of the Yelp Video Walkthrough' />
+<img src='http://i.imgur.com/2o9UExW.gif' title='Searcher of the Yelp Video Walkthrough' width='' alt='Searcher of the Yelp Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

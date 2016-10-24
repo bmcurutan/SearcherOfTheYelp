@@ -373,7 +373,7 @@ extension FiltersViewController: UITableViewDataSource {
         case FilterSection.categories:
             return "Category"
         default: // FilterSection.deals
-            return nil
+            return " "
         }
     }
 }
@@ -383,10 +383,10 @@ extension FiltersViewController: UITableViewDataSource {
 extension FiltersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if nil != self.tableView(tableView, titleForHeaderInSection: section) {
+        if " " != self.tableView(tableView, titleForHeaderInSection: section) {
             return 45
         }
-        return 0
+        return 8
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -418,6 +418,7 @@ extension FiltersViewController: UITableViewDelegate {
         }
         
         let headerView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.view.frame.width, height: 45)))
+        headerView.backgroundColor = UIColor.white
         let label = UILabel(frame: CGRect(x: 0, y: 10, width: self.view.frame.width, height: 30))
         label.text = self.tableView(tableView, titleForHeaderInSection: section)
         headerView.addSubview(label)
