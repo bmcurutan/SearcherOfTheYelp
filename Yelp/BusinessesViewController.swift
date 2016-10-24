@@ -59,11 +59,15 @@ class BusinessesViewController: UIViewController {
     // MARK: - Private Methods
     
     fileprivate func doSearch() {
-        
+        doSearchWithOffset(nil, limit: nil)
+    }
+    
+    fileprivate func doSearchWithOffset(_ offset: Int, limit: Int) {
+    
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
         SearchSettings.sharedInstance.resetFiltersForNewSearch()
-        Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, offset: offset, limit: limit, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
             
@@ -162,7 +166,7 @@ extension BusinessesViewController: UIScrollViewDelegate {
             if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
                 isLoading = true
                 
-                //doSearch
+                doSearch
             }
         }
     }
