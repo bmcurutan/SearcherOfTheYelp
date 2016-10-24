@@ -14,6 +14,7 @@ class BusinessesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
   
     var businesses: [Business]!
+    var isLoading = false
     var searchBar: UISearchBar!
     
     override func viewDidLoad() {
@@ -144,5 +145,25 @@ extension BusinessesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Deselect row appearance after it has been selected
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension BusinessesViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (!isLoading) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+                isLoading = true
+                
+                //doSearch
+            }
+        }
     }
 }
