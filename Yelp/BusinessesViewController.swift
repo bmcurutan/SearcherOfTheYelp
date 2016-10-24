@@ -15,7 +15,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
   
     var businesses: [Business]!
     var searchBar: UISearchBar!
-    var searchSettings = SearchSettings()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,14 +24,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         searchBar.placeholder = "Restaurants"
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
-        doSearch(searchSettings)
+        doSearch(SearchSettings.sharedInstance)
         
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
-        doSearch(searchSettings)
+        doSearch(SearchSettings.sharedInstance)
     }
     
     override func didReceiveMemoryWarning() {
@@ -88,12 +87,13 @@ extension BusinessesViewController: UITableViewDataSource {
 extension BusinessesViewController: FiltersViewControllerDelegate {
     
     // TODO Fix SearchSettings abstraction instead of using filters dictionary
-    func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject]) {
+    func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: SearchSettings) {
         
-        let sort = filters["sort"] as? YelpSortMode ?? YelpSortMode.bestMatched
-        let deals = filters["deals"] as? Bool ?? false
-        let distance = filters["distance"] as? Int ?? 40000
-        let categories = filters["categories"] as? [String]
+        let sort = SearchSettings.sharedInstance.sort
+        let deals = SearchSettings.sharedInstance.deals
+        let distance = SearchSettings.sharedInstance.distance
+        let categories = SearchSettings.sharedInstance.categories
+        
         Business.searchWithTerm(term: "Restaurants", sort: sort, categories: categories, deals: deals, distance: distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
@@ -119,8 +119,8 @@ extension BusinessesViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchSettings.searchString = searchBar.text
+        SearchSettings.sharedInstance.searchString = searchBar.text
         searchBar.resignFirstResponder()
-        doSearch(searchSettings)
+        doSearch(SearchSettings.sharedInstance)
     }
 }

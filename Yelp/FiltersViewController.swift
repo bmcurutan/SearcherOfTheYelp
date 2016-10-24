@@ -16,8 +16,8 @@ import UIKit
     case category
 }*/
 
-@objc protocol FiltersViewControllerDelegate {
-    @objc optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
+protocol FiltersViewControllerDelegate: class {
+    func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: SearchSettings)
 }
 
 class FiltersViewController: UIViewController, UITableViewDelegate {
@@ -56,16 +56,15 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
 
     @IBAction func onSearchButton(_ sender: AnyObject) {
         dismiss(animated: true, completion: nil)
-        var filters = [String:AnyObject]()
         
         // Deals
-        filters["deals"] = deals as AnyObject?
+        SearchSettings.sharedInstance.deals = deals
         
         // Distance
-        filters["distance"] = selectedDistance as AnyObject?
+        SearchSettings.sharedInstance.distance = selectedDistance
         
         // Sort
-        filters["sort"] = YelpSortMode(rawValue: selectedSort) as AnyObject?
+        SearchSettings.sharedInstance.sort = YelpSortMode(rawValue: selectedSort)
 
         // Categories
         var selectedCategories = [String]()
@@ -76,10 +75,10 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
         }
         
         if selectedCategories.count > 0 {
-            filters["categories"] = selectedCategories as AnyObject?
+            SearchSettings.sharedInstance.categories = selectedCategories
         }
         
-        delegate?.filtersViewController?(filtersViewController: self, didUpdateFilters: filters)
+        delegate?.filtersViewController(filtersViewController: self, didUpdateFilters: SearchSettings.sharedInstance)
     }
     
     // MARK: - Private Methods
