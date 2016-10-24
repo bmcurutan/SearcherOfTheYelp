@@ -11,20 +11,22 @@ import UIKit
 
 class BusinessDetailsViewController: UIViewController {
     
-    @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var categoriesLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ratingsImageView: UIImageView!
     @IBOutlet weak var reviewsCountLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     var business: Business!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addressLabel.text = business.address
+        tableView.dataSource = self
+        tableView.delegate = self
+        
         categoriesLabel.text = business.categories
         distanceLabel.text = business.distance
         nameLabel.text = business.name
@@ -59,5 +61,29 @@ class BusinessDetailsViewController: UIViewController {
         let span = MKCoordinateSpanMake(0.1, 0.1)
         let region = MKCoordinateRegionMake(location.coordinate, span)
         mapView.setRegion(region, animated: false)
+    }
+    
+    // MARK: - UITableViewDataSource
+}
+
+extension BusinessDetailsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCell", for: indexPath) as! AddressCell
+        cell.addressLabel.text = business.address
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension BusinessDetailsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Deselect row appearance after it has been selected
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

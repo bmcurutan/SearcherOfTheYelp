@@ -361,18 +361,43 @@
                                 <frame key="frameInset" minX="10" minY="157" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WpN-oZ-1ww" id="8Fl-eV-K34">
-                                    <frame key="frameInset" height="44"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address details" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUr-N9-hpm">
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HIu-1i-rSo">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddressCell" id="eHc-Mr-wjC" customClass="AddressCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eHc-Mr-wjC" id="peE-RU-zIt">
+                                            <frame key="frameInset" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CvN-VR-e63">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="CvN-VR-e63" secondAttribute="trailing" constant="8" id="ibL-PA-BsF"/>
+                                                <constraint firstItem="CvN-VR-e63" firstAttribute="centerY" secondItem="peE-RU-zIt" secondAttribute="centerY" id="nak-BX-6yG"/>
+                                                <constraint firstItem="CvN-VR-e63" firstAttribute="leading" secondItem="peE-RU-zIt" secondAttribute="leading" constant="8" id="oxw-dE-Moh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="CvN-VR-e63" id="WiC-mr-zI9"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="HIu-1i-rSo" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" id="17g-oL-AHw"/>
+                            <constraint firstAttribute="trailing" secondItem="HIu-1i-rSo" secondAttribute="trailing" id="3Uh-9z-Tld"/>
                             <constraint firstItem="BIk-rE-ako" firstAttribute="top" secondItem="C4g-BV-zwj" secondAttribute="bottom" constant="10" id="3eE-cF-MGl"/>
                             <constraint firstItem="BIk-rE-ako" firstAttribute="leading" secondItem="V7A-GQ-bkk" secondAttribute="trailing" constant="8" id="4Ca-x4-g2v"/>
                             <constraint firstItem="z9o-ty-a1b" firstAttribute="top" secondItem="V7A-GQ-bkk" secondAttribute="bottom" constant="5" id="5OY-Ta-s5j"/>
@@ -380,18 +405,17 @@
                             <constraint firstItem="5JT-r1-yLe" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" id="8rq-XW-gdf"/>
                             <constraint firstItem="JJX-aS-b8p" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" constant="8" id="91R-05-cVf"/>
                             <constraint firstAttribute="trailing" secondItem="FdV-Z7-1Fp" secondAttribute="trailing" constant="8" id="F2m-s3-gKS"/>
+                            <constraint firstItem="nQX-YW-HkW" firstAttribute="top" secondItem="HIu-1i-rSo" secondAttribute="bottom" id="KaS-M4-MnU"/>
                             <constraint firstItem="JJX-aS-b8p" firstAttribute="top" secondItem="V7A-GQ-bkk" secondAttribute="bottom" constant="5" id="NZg-af-6Q9"/>
-                            <constraint firstItem="XUr-N9-hpm" firstAttribute="top" secondItem="5JT-r1-yLe" secondAttribute="bottom" constant="8" symbolic="YES" id="UPc-DS-6bg"/>
                             <constraint firstItem="FdV-Z7-1Fp" firstAttribute="top" secondItem="BIk-rE-ako" secondAttribute="bottom" constant="5" id="aav-EI-M5N"/>
                             <constraint firstItem="V7A-GQ-bkk" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" constant="8" id="emH-Au-hmx"/>
                             <constraint firstItem="V7A-GQ-bkk" firstAttribute="top" secondItem="C4g-BV-zwj" secondAttribute="bottom" constant="8" id="ftW-Xw-Xq6"/>
                             <constraint firstItem="Z1S-VY-5n5" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" constant="8" id="h6Y-4l-TUc"/>
                             <constraint firstItem="z9o-ty-a1b" firstAttribute="leading" secondItem="JJX-aS-b8p" secondAttribute="trailing" constant="5" id="ihc-2h-8IQ"/>
-                            <constraint firstItem="XUr-N9-hpm" firstAttribute="leading" secondItem="Pbi-nj-HPm" secondAttribute="leading" constant="8" id="jR7-iu-BVj"/>
                             <constraint firstItem="5JT-r1-yLe" firstAttribute="top" secondItem="Z1S-VY-5n5" secondAttribute="bottom" constant="8" id="obn-5P-gHK"/>
-                            <constraint firstAttribute="trailing" secondItem="XUr-N9-hpm" secondAttribute="trailing" constant="8" id="qjs-Mg-mCk"/>
                             <constraint firstAttribute="trailing" secondItem="BIk-rE-ako" secondAttribute="trailing" constant="8" id="r80-op-U5r"/>
                             <constraint firstItem="Z1S-VY-5n5" firstAttribute="top" secondItem="JJX-aS-b8p" secondAttribute="bottom" constant="4" id="uyn-F3-smu"/>
+                            <constraint firstItem="HIu-1i-rSo" firstAttribute="top" secondItem="5JT-r1-yLe" secondAttribute="bottom" id="zNF-hV-0Rw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cSd-lq-j8o">
@@ -402,13 +426,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addressLabel" destination="XUr-N9-hpm" id="7sR-Yd-sUW"/>
                         <outlet property="categoriesLabel" destination="Z1S-VY-5n5" id="qP3-G9-CD3"/>
                         <outlet property="distanceLabel" destination="BIk-rE-ako" id="eG1-rA-abT"/>
                         <outlet property="mapView" destination="5JT-r1-yLe" id="WCf-z9-IYM"/>
                         <outlet property="nameLabel" destination="V7A-GQ-bkk" id="bB6-dg-bi0"/>
                         <outlet property="ratingsImageView" destination="JJX-aS-b8p" id="7uZ-3f-DoX"/>
                         <outlet property="reviewsCountLabel" destination="z9o-ty-a1b" id="DYN-TS-eB0"/>
+                        <outlet property="tableView" destination="HIu-1i-rSo" id="mU7-hK-LPg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N71-G3-918" userLabel="First Responder" sceneMemberID="firstResponder"/>

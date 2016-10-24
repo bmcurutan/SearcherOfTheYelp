@@ -20,6 +20,7 @@
 		670CE4231DBC845B0023EE0C /* BusinessDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670CE4221DBC845B0023EE0C /* BusinessDetailsViewController.swift */; };
 		675459931DB8528800BB00C0 /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675459921DB8528800BB00C0 /* BusinessCell.swift */; };
 		67A6459E1DBDD8F100B85B73 /* DropdownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6459D1DBDD8F100B85B73 /* DropdownCell.swift */; };
+		67A645A21DBE59D600B85B73 /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A645A11DBE59D600B85B73 /* AddressCell.swift */; };
 		67F1469F1DB96CB100945110 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1469E1DB96CB100945110 /* SwitchCell.swift */; };
 		67F146A11DB96DF500945110 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F146A01DB96DF500945110 /* FiltersViewController.swift */; };
 		67FBA48E1DBA8D5F00D79F17 /* SearchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FBA48D1DBA8D5F00D79F17 /* SearchSettings.swift */; };
@@ -53,6 +54,7 @@
 		670CE4221DBC845B0023EE0C /* BusinessDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailsViewController.swift; sourceTree = "<group>"; };
 		675459921DB8528800BB00C0 /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
 		67A6459D1DBDD8F100B85B73 /* DropdownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownCell.swift; sourceTree = "<group>"; };
+		67A645A11DBE59D600B85B73 /* AddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
 		67F1469E1DB96CB100945110 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		67F146A01DB96DF500945110 /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		67FBA48D1DBA8D5F00D79F17 /* SearchSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchSettings.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				675459921DB8528800BB00C0 /* BusinessCell.swift */,
+				67A645A11DBE59D600B85B73 /* AddressCell.swift */,
 				67A6459D1DBDD8F100B85B73 /* DropdownCell.swift */,
 				67F1469E1DB96CB100945110 /* SwitchCell.swift */,
 			);
@@ -405,6 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67A645A21DBE59D600B85B73 /* AddressCell.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
 				67F146A11DB96DF500945110 /* FiltersViewController.swift in Sources */,
