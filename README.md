@@ -32,7 +32,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [x] Customized navigation bar to better match Yelp mock
+- [x] Customized navigation bar and Filters page cells to better match Yelp mock
 - [x] Added loading icon on businesses list page
 - [x] Abstracted search settings into a separate model to hide implementation details. There's a singleton which can be later developed to save settings across the app instead of re-entering them every time. Assumptions: Default search term is "Restaurants" (as in the mock), and filters are reset when there's a new search.
 - [x] Search action on default search term "Restaurants" if UISearchBar text is cleared

@@ -383,7 +383,7 @@ extension FiltersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if nil != self.tableView(tableView, titleForHeaderInSection: section) {
-            return 40
+            return 50
         }
         return 0
     }
