@@ -52,7 +52,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
     
     fileprivate func doSearch(_ settings: SearchSettings) {
         
-        // TODO MBProgressHUD.showAdded(to: self.view, animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         
         // TODO abstract search settings
         Business.searchWithTerm(term: settings.searchString!, sort: nil, categories: nil /* TODO ["asianfusion", "burgers"]*/, deals: true, distance: settings.distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
@@ -66,7 +66,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
                 }
             }
             
-            // TODO MBProgressHUD.hide(for: self.view, animated: true)
+            MBProgressHUD.hideAllHUDs(for: self.view, animated: true);            
         })
     }
 }
