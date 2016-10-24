@@ -24,14 +24,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
         searchBar.placeholder = "Restaurants"
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
-        doSearch(SearchSettings.sharedInstance)
+        doSearch()
         
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
-        doSearch(SearchSettings.sharedInstance)
+        doSearch()
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,12 +50,12 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
     
     // MARK: - Private Methods
     
-    fileprivate func doSearch(_ settings: SearchSettings) {
+    fileprivate func doSearch() {
         
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
-        // TODO abstract search settings
-        Business.searchWithTerm(term: settings.searchString!, sort: nil, categories: nil /* TODO ["asianfusion", "burgers"]*/, deals: true, distance: settings.distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        SearchSettings.sharedInstance.resetFiltersForNewSearch()
+        Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
             
@@ -66,7 +66,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate {
                 }
             }
             
-            MBProgressHUD.hideAllHUDs(for: self.view, animated: true);            
+            MBProgressHUD.hideAllHUDs(for: self.view, animated: true);
         })
     }
 }
@@ -126,6 +126,6 @@ extension BusinessesViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         SearchSettings.sharedInstance.searchString = searchBar.text
         searchBar.resignFirstResponder()
-        doSearch(SearchSettings.sharedInstance)
+        doSearch()
     }
 }

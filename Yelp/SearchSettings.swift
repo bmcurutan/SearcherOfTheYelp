@@ -16,7 +16,7 @@ class SearchSettings {
     var deals: Bool!
     var distance: Int!
     var searchString: String!
-    var sort: YelpSortMode! // 0 = Best matched (Yelp default), 1 = Distance, 2 = Highest Rated
+    var sort: YelpSortMode!
     
     init(categories: [String]!, deals: Bool!, distance: Int!, searchString: String!, sort: YelpSortMode!) {
         self.categories = categories
@@ -24,5 +24,13 @@ class SearchSettings {
         self.distance = distance
         self.searchString = searchString
         self.sort = sort
+    }
+    
+    // Reset filters to default values - this is the assumed expected behavior when a new search term is used
+    func resetFiltersForNewSearch() {
+        categories = []
+        deals = false
+        distance = 40000
+        sort = YelpSortMode.bestMatched
     }
 }
