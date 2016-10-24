@@ -13,9 +13,13 @@ class BusinessesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
   
-    var businesses: [Business]!
-    var isLoading = false
+    var businesses: [Business] = []
     var searchBar: UISearchBar!
+    
+    // Infinite loading variables
+    var isLoading = false
+    var offset = 0
+    final var limit = 20 // Default Yelp limit
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,38 +51,41 @@ class BusinessesViewController: UIViewController {
         } else if "detailsSegue" == segue.identifier {
             let cell = sender as! BusinessCell
             let indexPath = tableView.indexPath(for: cell)
+            let business = businesses[indexPath!.row]
+            let detailsViewController = navigationController.topViewController as! BusinessDetailsViewController
+            detailsViewController.business = business
             
-            if let businesses = self.businesses {
-                let business = businesses[indexPath!.row]
-                let detailsViewController = navigationController.topViewController as! BusinessDetailsViewController
-                detailsViewController.business = business
-            }
         }
     }
     
     // MARK: - Private Methods
     
     fileprivate func doSearch() {
-        doSearchWithOffset(nil, limit: nil)
+        doSearchWithOffset(0)
     }
     
-    fileprivate func doSearchWithOffset(_ offset: Int, limit: Int) {
+    fileprivate func doSearchWithOffset(_ offset: Int) {
     
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
         SearchSettings.sharedInstance.resetFiltersForNewSearch()
-        Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, offset: offset, limit: limit, completion: { (businesses: [Business]?, error: Error?) -> Void in
-            self.businesses = businesses
+        Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, offset: offset, completion: { (businesses: [Business]?, error: Error?) -> Void in
+            
+            for business in businesses! {
+                self.businesses.append(business)
+            }
             self.tableView.reloadData()
             
+            /* Used for testing
             if let businesses = businesses {
                 for business in businesses {
                     print(business.name!)
                     print(business.address!)
                 }
-            }
+            }*/
             
             MBProgressHUD.hideAllHUDs(for: self.view, animated: true);
+            self.isLoading = false
         })
     }
 }
@@ -88,7 +95,7 @@ class BusinessesViewController: UIViewController {
 extension BusinessesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return businesses?.count ?? 0
+        return businesses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,7 +117,7 @@ extension BusinessesViewController: FiltersViewControllerDelegate {
         let categories = SearchSettings.sharedInstance.categories
         
         Business.searchWithTerm(term: "Restaurants", sort: sort, categories: categories, deals: deals, distance: distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
-            self.businesses = businesses
+            self.businesses = businesses!
             self.tableView.reloadData()
         })
     }
@@ -165,8 +172,9 @@ extension BusinessesViewController: UIScrollViewDelegate {
             // When the user has scrolled past the threshold, start requesting
             if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
                 isLoading = true
+                offset += limit
                 
-                doSearch
+                doSearchWithOffset(offset)
             }
         }
     }

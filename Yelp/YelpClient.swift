@@ -48,10 +48,10 @@ class YelpClient: BDBOAuth1RequestOperationManager {
     }
     
     func searchWithTerm(_ term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, distance: Int?, completion: @escaping ([Business]?, Error?) -> Void) -> AFHTTPRequestOperation {
-        return searchWithTerm(term, sort: nil, categories: nil, deals: nil, distance: maxDistance, offset: nil, limit: nil, completion: completion)
+        return searchWithTerm(term, sort: nil, categories: nil, deals: nil, distance: maxDistance, offset: 0, completion: completion)
     }
     
-    func searchWithTerm(_ term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, distance: Int?, offset: Int?, limit: Int?, completion: @escaping ([Business]?, Error?) -> Void) -> AFHTTPRequestOperation {
+    func searchWithTerm(_ term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, distance: Int?, offset: Int?, completion: @escaping ([Business]?, Error?) -> Void) -> AFHTTPRequestOperation {
         // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
         
         // Default the location to San Francisco
@@ -75,10 +75,6 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         
         if offset != nil {
             parameters["offset"] = offset! as AnyObject?
-        }
-        
-        if limit != nil {
-            parameters["limit"] = limit! as AnyObject?
         }
         
         print(parameters)
