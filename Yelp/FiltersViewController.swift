@@ -289,14 +289,14 @@ extension FiltersViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch (section) {
-        case 1:
-            return 5
-        case 2:
+        switch (FilterSection(rawValue: section)!) {
+        case FilterSection.distance:
+            return distances.count
+        case FilterSection.sort:
             return 3
-        case 3:
+        case FilterSection.categories:
             return 4
-        default:
+        default: // FilterSection.deals
             return 1
         }
     }
@@ -306,14 +306,14 @@ extension FiltersViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch (section) {
-        case 1:
+        switch (FilterSection(rawValue: section)!) {
+        case FilterSection.distance:
             return "Distance"
-        case 2:
+        case FilterSection.sort:
             return "Sort By"
-        case 3:
+        case FilterSection.categories:
             return "Category"
-        default:
+        default: // FilterSection.deals
             return ""
         }
     }
