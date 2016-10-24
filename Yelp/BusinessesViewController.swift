@@ -95,13 +95,20 @@ class BusinessesViewController: UIViewController {
 extension BusinessesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return businesses.count
+        return (businesses.count > 0 ? businesses.count : 1)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
-        cell.business = businesses[indexPath.row]
-        return cell
+        if businesses.count > 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
+            cell.business = businesses[indexPath.row]
+            return cell
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BlankCell", for: indexPath)
+            cell.textLabel?.text = "No Results Found"
+            return cell
+        }
     }
 }
 
