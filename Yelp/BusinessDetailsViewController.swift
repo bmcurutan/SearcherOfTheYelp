@@ -12,7 +12,6 @@ import UIKit
 class BusinessDetailsViewController: UIViewController {
     
     @IBOutlet weak var categoriesLabel: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ratingsImageView: UIImageView!
@@ -28,7 +27,6 @@ class BusinessDetailsViewController: UIViewController {
         tableView.delegate = self
         
         categoriesLabel.text = business.categories
-        distanceLabel.text = business.distance
         nameLabel.text = business.name
         ratingsImageView.setImageWith(business.ratingImageURL!)
         reviewsCountLabel.text = "\(business.reviewCount!) Reviews"
@@ -72,17 +70,23 @@ extension BusinessDetailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 1: // phone
+        if 1 == indexPath.section {
             let cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: indexPath) as! IconCell
             // cell.iconImageView
             cell.phoneLabel.text = business.phone
             return cell
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
-            cell.addressLabel.text = business.address
-            return cell
         }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
+        cell.addressLabel.text = business.address
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if 1 == section {
+            return " "
+        }
+        return nil
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,5 +108,19 @@ extension BusinessDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Deselect row appearance after it has been selected
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if nil != self.tableView(tableView, titleForHeaderInSection: section) {
+            return 10
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if 0 == indexPath.section {
+            return 35
+        }
+        return 50
     }
 }
