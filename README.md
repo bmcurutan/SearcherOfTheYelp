@@ -45,17 +45,20 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/DTeFdiG.gif' title='Searcher of the Yelp Video Walkthrough' width='' alt='Searcher of the Yelp Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+- I tended to over-complicate things with the UI for this app. In the end, at least as a first iteration, I implemented the "checkmark" cells using basic UISwitch and omitted the custom UISwitch task for now ("You can use the default UISwitch for on/off states").
+- I faced some challenges data storing for distance and sort since only one value per section should be stored at a time. From the UI side, sometimes a checkmark would only show up in one section and disappear from the other upon a selection action.
+- I would like to explore better ways to implement the "See All" and dropdown cell actions. For now, there are a bunch of switches and "if" checks that make these actions functional, but it would be a better learning experience to know a cleaner, less hacky way to do this. 
+
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright 2016 Bianca Curutan.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
