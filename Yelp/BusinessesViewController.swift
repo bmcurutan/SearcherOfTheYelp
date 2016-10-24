@@ -6,13 +6,16 @@
 //  Copyright (c) 2015 Timothy Lee. All rights reserved.
 //
 
+import MapKit
 import MBProgressHUD
 import UIKit
 
 class BusinessesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-  
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapListButton: UIBarButtonItem!
+    
     var businesses: [Business] = []
     var searchBar: UISearchBar!
     
@@ -35,6 +38,12 @@ class BusinessesViewController: UIViewController {
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
+        tableView.isHidden = false
+        
+        // Default location to San Francisco
+        let centerLocation = CLLocation(latitude: 37.785771, longitude: -122.406165)
+        goToLocation(location: centerLocation)
+        mapView.isHidden = true
         
         doSearch()
     }
@@ -58,7 +67,26 @@ class BusinessesViewController: UIViewController {
         }
     }
     
+    // MARK: - IBAction
+    
+    @IBAction func onMapListButton(_ sender: AnyObject) {
+        tableView.isHidden = !tableView.isHidden
+        mapView.isHidden = !mapView.isHidden
+        
+        if "Map" == mapListButton.title {
+            mapListButton.title = "List"
+        } else {
+            mapListButton.title = "Map"
+        }
+    }
+    
     // MARK: - Private Methods
+    
+    fileprivate func goToLocation(location: CLLocation) {
+        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let region = MKCoordinateRegionMake(location.coordinate, span)
+        mapView.setRegion(region, animated: false)
+    }
     
     fileprivate func doSearch() {
         doSearchWithOffset(0)
@@ -66,7 +94,7 @@ class BusinessesViewController: UIViewController {
     
     fileprivate func doSearchWithOffset(_ offset: Int) {
     
-        MBProgressHUD.showAdded(to: self.view, animated: true)
+        //TODO remove comment MBProgressHUD.showAdded(to: self.view, animated: true)
         
         SearchSettings.sharedInstance.resetFiltersForNewSearch()
         Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, offset: offset, completion: { (businesses: [Business]?, error: Error?) -> Void in

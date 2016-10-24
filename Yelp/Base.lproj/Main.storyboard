@@ -116,13 +116,18 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4eP-Qo-n6v"/>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="VBY-gq-v8E" firstAttribute="top" secondItem="4eP-Qo-n6v" secondAttribute="bottom" id="5Z3-VA-Bav"/>
                             <constraint firstItem="e5W-a6-f5k" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" id="EBg-KA-JHb"/>
+                            <constraint firstItem="4eP-Qo-n6v" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" id="H3b-nE-6LE"/>
                             <constraint firstItem="e5W-a6-f5k" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leading" id="QDg-la-Cdz"/>
                             <constraint firstAttribute="trailing" secondItem="e5W-a6-f5k" secondAttribute="trailing" id="Zhm-ge-9hT"/>
+                            <constraint firstAttribute="trailing" secondItem="4eP-Qo-n6v" secondAttribute="trailing" id="cgO-ky-uYF"/>
                             <constraint firstItem="VBY-gq-v8E" firstAttribute="top" secondItem="e5W-a6-f5k" secondAttribute="bottom" id="kG2-HN-OxW"/>
+                            <constraint firstItem="4eP-Qo-n6v" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leading" id="rQY-vu-eUC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Yelp" id="cNY-mq-h7D">
@@ -131,8 +136,15 @@
                                 <segue destination="kg1-Ay-xan" kind="presentation" identifier="filtersSegue" id="4kw-wh-BoD"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="yX8-6p-d0G">
+                            <connections>
+                                <action selector="onMapListButton:" destination="2xI-yr-O5N" id="hqQ-NR-llO"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="mapListButton" destination="yX8-6p-d0G" id="tuH-i5-CQr"/>
+                        <outlet property="mapView" destination="4eP-Qo-n6v" id="Mxl-ZT-qRi"/>
                         <outlet property="tableView" destination="e5W-a6-f5k" id="3GN-uB-rtn"/>
                     </connections>
                 </viewController>
