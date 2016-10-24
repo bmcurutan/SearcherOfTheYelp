@@ -35,7 +35,7 @@ class BusinessDetailsViewController: UIViewController {
         
         // Default location to business
         let centerLocation = CLLocation(latitude: business.latitude, longitude: business.longitude)
-        goToLocation(location: centerLocation)
+        goToLocation(centerLocation)
         
         let coordinate = CLLocationCoordinate2DMake(business.latitude, business.longitude)
         addAnnotationAtCoordinate(coordinate)
@@ -55,7 +55,7 @@ class BusinessDetailsViewController: UIViewController {
         mapView.addAnnotation(annotation)
     }
     
-    fileprivate func goToLocation(location: CLLocation) {
+    fileprivate func goToLocation(_ location: CLLocation) {
         let span = MKCoordinateSpanMake(0.1, 0.1)
         let region = MKCoordinateRegionMake(location.coordinate, span)
         mapView.setRegion(region, animated: false)

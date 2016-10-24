@@ -21,8 +21,8 @@ class BusinessesViewController: UIViewController {
     
     // Infinite loading variables
     var isLoading = false
-    var offset = 0
-    final var limit = 20 // Default Yelp limit
+    var offset: Int = 0
+    var limit: Int = 20 // Default Yelp limit
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,7 @@ class BusinessesViewController: UIViewController {
         
         // Default location to San Francisco
         let centerLocation = CLLocation(latitude: 37.785771, longitude: -122.406165)
-        goToLocation(location: centerLocation)
+        goToLocation(centerLocation)
         mapView.isHidden = true
         
         doSearch()
@@ -90,7 +90,7 @@ class BusinessesViewController: UIViewController {
         mapView.addAnnotation(annotation)
     }
     
-    fileprivate func goToLocation(location: CLLocation) {
+    fileprivate func goToLocation(_ location: CLLocation) {
         let span = MKCoordinateSpanMake(0.1, 0.1)
         let region = MKCoordinateRegionMake(location.coordinate, span)
         mapView.setRegion(region, animated: false)
@@ -106,7 +106,8 @@ class BusinessesViewController: UIViewController {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
         SearchSettings.sharedInstance.resetFiltersForNewSearch()
-        Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, offset: offset, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, offset: offset,
+            completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             for business in businesses! {
                 self.businesses.append(business)
@@ -134,7 +135,7 @@ class BusinessesViewController: UIViewController {
 extension BusinessesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (businesses.count > 0 ? businesses.count : 1)
+        return businesses.count > 0 ? businesses.count : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -162,7 +163,8 @@ extension BusinessesViewController: FiltersViewControllerDelegate {
         let distance = SearchSettings.sharedInstance.distance
         let categories = SearchSettings.sharedInstance.categories
         
-        Business.searchWithTerm(term: "Restaurants", sort: sort, categories: categories, deals: deals, distance: distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Restaurants", sort: sort, categories: categories, deals: deals, distance: distance,
+        completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses!
             self.tableView.reloadData()
         })

@@ -10,7 +10,7 @@ import UIKit
 
 let maxDistance: Double = 40000
 
-class SearchSettings {
+final class SearchSettings {
     
     static let sharedInstance = SearchSettings(categories: [], deals: false, distance: maxDistance, searchString: "Restaurants", sort: YelpSortMode.bestMatched)
     

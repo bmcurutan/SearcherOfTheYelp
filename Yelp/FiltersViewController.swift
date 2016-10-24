@@ -30,7 +30,7 @@ class FiltersViewController: UIViewController {
     var deals: Bool = false
     var distanceStates: [Int:Bool] = [0: true] // Default to Auto
     var sortStates: [Int:Bool] = [0: true] // Default to Best Matched
-    var categoryStates = [Int:Bool]()
+    var categoryStates: [Int:Bool] = [:]
     
     // Expand variables
     var distanceExpanded: Bool = false
@@ -95,19 +95,19 @@ class FiltersViewController: UIViewController {
     // MARK: - Private Methods
     
     fileprivate func yelpSorts() -> [[String:AnyObject]] {
-        return [["name" : "Best Matched" as AnyObject, "sort" : YelpSortMode.bestMatched as AnyObject],
-                ["name" : "Distance" as AnyObject, "sort" : YelpSortMode.distance as AnyObject],
-                ["name" : "Highest Rated" as AnyObject, "sort" : YelpSortMode.highestRated as AnyObject]]
+        return [["name": "Best Matched" as AnyObject, "sort": YelpSortMode.bestMatched as AnyObject],
+                ["name": "Distance" as AnyObject, "sort": YelpSortMode.distance as AnyObject],
+                ["name": "Highest Rated" as AnyObject, "sort": YelpSortMode.highestRated as AnyObject]]
     }
     
     // Approximate distances in meters, converted from miles
     fileprivate func yelpDistances() -> [[String:AnyObject]] {
         let metersPerMile = 1/0.000621371
-        return [["name" : "Auto" as AnyObject, "meters" : maxDistance as AnyObject],
-                ["name" : "0.3 miles" as AnyObject, "meters" : 0.3 * metersPerMile as AnyObject],
-                ["name" : "1 mile" as AnyObject, "meters" : metersPerMile as AnyObject],
-                ["name" : "5 miles" as AnyObject, "meters" : 5 * metersPerMile as AnyObject],
-                ["name" : "20 miles" as AnyObject, "meters" : 20 * metersPerMile as AnyObject]]
+        return [["name": "Auto" as AnyObject, "meters": maxDistance as AnyObject],
+                ["name": "0.3 miles" as AnyObject, "meters": 0.3 * metersPerMile as AnyObject],
+                ["name": "1 mile" as AnyObject, "meters": metersPerMile as AnyObject],
+                ["name": "5 miles" as AnyObject, "meters": 5 * metersPerMile as AnyObject],
+                ["name": "20 miles" as AnyObject, "meters": 20 * metersPerMile as AnyObject]]
     }
     
     fileprivate func yelpCategories() -> [[String:String]] {
@@ -350,11 +350,11 @@ extension FiltersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch FilterSection(rawValue: section)! {
         case FilterSection.distance:
-            return (distanceExpanded ? distances.count : 1)
+            return distanceExpanded ? distances.count : 1
         case FilterSection.sort:
-            return (sortExpanded ? sorts.count : 1)
+            return sortExpanded ? sorts.count : 1
         case FilterSection.categories:
-            return (categoriesExpanded ? categories.count : 5)
+            return categoriesExpanded ? categories.count : 5
         case FilterSection.deals:
             return 1
         }
@@ -413,14 +413,15 @@ extension FiltersViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if nil != self.tableView(tableView, titleForHeaderInSection: section) {
-            let headerView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.view.frame.width, height: 45)))
-            let label = UILabel(frame: CGRect(x: 0, y: 10, width: self.view.frame.width, height: 30))
-            label.text = self.tableView(tableView, titleForHeaderInSection: section)
-            headerView.addSubview(label)
-            return headerView
+        guard nil != self.tableView(tableView, titleForHeaderInSection: section) else {
+            return nil
         }
-        return nil
+        
+        let headerView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.view.frame.width, height: 45)))
+        let label = UILabel(frame: CGRect(x: 0, y: 10, width: self.view.frame.width, height: 30))
+        label.text = self.tableView(tableView, titleForHeaderInSection: section)
+        headerView.addSubview(label)
+        return headerView
     }
 }
 
@@ -436,13 +437,13 @@ extension FiltersViewController: SwitchCellDelegate {
             deals = value
             
         case FilterSection.distance:
-            distanceStates = [Int:Bool]() // Reset distance states
+            distanceStates = [:] // Reset distance states
             distanceStates[indexPath.row] = value
             distanceExpanded = false
             tableView.reloadSections(NSIndexSet(index: FilterSection.distance.rawValue) as IndexSet, with: .none)
             
         case FilterSection.sort:
-            sortStates = [Int:Bool]() // Reset sort states
+            sortStates = [:] // Reset sort states
             sortStates[indexPath.row] = value
             sortExpanded = false
             tableView.reloadSections(NSIndexSet(index: FilterSection.sort.rawValue) as IndexSet, with: .none)
