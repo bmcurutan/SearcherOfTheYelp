@@ -299,7 +299,12 @@ extension FiltersViewController: UITableViewDataSource {
         case FilterSection.distance:
             if !distanceExpanded && 0 == indexPath.row {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath) as! DropdownCell
-                cell.dropdownLabel.text = distances[indexPath.row]["name"] as? String
+                for (row, isSelected) in distanceStates {
+                    if isSelected {
+                        cell.dropdownLabel.text = distances[row]["name"] as? String
+                        break
+                    }
+                }
                 return cell
             }
             
@@ -312,7 +317,12 @@ extension FiltersViewController: UITableViewDataSource {
         case FilterSection.sort:
             if !sortExpanded && 0 == indexPath.row {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath) as! DropdownCell
-                cell.dropdownLabel.text = sorts[indexPath.row]["name"] as? String
+                for (row, isSelected) in sortStates {
+                    if isSelected {
+                        cell.dropdownLabel.text = sorts[row]["name"] as? String
+                        break
+                    }
+                }
                 return cell
             }
             
@@ -425,14 +435,19 @@ extension FiltersViewController: SwitchCellDelegate {
         switch FilterSection(rawValue:indexPath.section)! {
         case FilterSection.deals:
             deals = value
+            
         case FilterSection.distance:
             distanceStates = [Int:Bool]() // Reset distance states
             distanceStates[indexPath.row] = value
+            distanceExpanded = false
             tableView.reloadSections(NSIndexSet(index: FilterSection.distance.rawValue) as IndexSet, with: .none)
+            
         case FilterSection.sort:
             sortStates = [Int:Bool]() // Reset sort states
             sortStates[indexPath.row] = value
+            sortExpanded = false
             tableView.reloadSections(NSIndexSet(index: FilterSection.sort.rawValue) as IndexSet, with: .none)
+            
         case FilterSection.categories:
             categoryStates[indexPath.row] = value
         }
