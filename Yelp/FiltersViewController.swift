@@ -72,7 +72,7 @@ class FiltersViewController: UIViewController {
         SearchSettings.sharedInstance.distance = maxDistance
         for (row, isSelected) in distanceStates {
             if isSelected {
-                SearchSettings.sharedInstance.distance = distances[row]["meters"] as! Int
+                SearchSettings.sharedInstance.distance = distances[row]["meters"] as! Double
                 break
             }
         }
@@ -102,11 +102,12 @@ class FiltersViewController: UIViewController {
     
     // Approximate distances in meters, converted from miles
     fileprivate func yelpDistances() -> [[String:AnyObject]] {
+        let metersPerMile = 1/0.000621371
         return [["name" : "Auto" as AnyObject, "meters" : maxDistance as AnyObject],
-                ["name" : "0.3 miles" as AnyObject, "meters" : 482 as AnyObject],
-                ["name" : "1 mile" as AnyObject, "meters" : 1609 as AnyObject],
-                ["name" : "5 miles" as AnyObject, "meters" : 8046 as AnyObject],
-                ["name" : "20 miles" as AnyObject, "meters" : 32186 as AnyObject]]
+                ["name" : "0.3 miles" as AnyObject, "meters" : 0.3 * metersPerMile as AnyObject],
+                ["name" : "1 mile" as AnyObject, "meters" : metersPerMile as AnyObject],
+                ["name" : "5 miles" as AnyObject, "meters" : 5 * metersPerMile as AnyObject],
+                ["name" : "20 miles" as AnyObject, "meters" : 20 * metersPerMile as AnyObject]]
     }
     
     fileprivate func yelpCategories() -> [[String:String]] {

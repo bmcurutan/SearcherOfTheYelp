@@ -8,7 +8,7 @@
 
 import UIKit
 
-let maxDistance = 40000
+let maxDistance: Double = 40000
 
 class SearchSettings {
     
@@ -16,11 +16,11 @@ class SearchSettings {
     
     var categories: [String]!
     var deals: Bool!
-    var distance: Int!
+    var distance: Double!
     var searchString: String!
     var sort: YelpSortMode!
     
-    init(categories: [String]!, deals: Bool!, distance: Int!, searchString: String!, sort: YelpSortMode!) {
+    init(categories: [String]!, deals: Bool!, distance: Double!, searchString: String!, sort: YelpSortMode!) {
         self.categories = categories
         self.deals = deals
         self.distance = distance
