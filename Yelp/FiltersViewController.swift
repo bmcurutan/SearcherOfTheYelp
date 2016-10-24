@@ -8,13 +8,9 @@
 
 import UIKit
 
-// TODO
-/*enum FilterSection: Int {
-    case deals = 0
-    case distance
-    case sort
-    case category
-}*/
+enum FilterSection: Int {
+    case deals = 0, distance, sort, categories
+}
 
 protocol FiltersViewControllerDelegate: class {
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: SearchSettings)
@@ -262,25 +258,25 @@ class FiltersViewController: UIViewController {
 extension FiltersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch (indexPath.section) {
-        case 0:
+        switch (FilterSection(rawValue:indexPath.section)!) {
+        case FilterSection.deals:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = "Offering a Deal"
             cell.delegate = self
             cell.onSwitch.isOn = false
             return cell
             
-        case 1:
+        case FilterSection.distance:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath)
             cell.textLabel?.text = distanceArray[indexPath.row]
             return cell
             
-        case 2:
+        case FilterSection.sort:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SortCell", for: indexPath)
             cell.textLabel?.text = sorts[indexPath.row]
             return cell
             
-        default:
+        default: // FilterSection.categories
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = categories[indexPath.row]["name"]
             cell.delegate = self
@@ -324,7 +320,6 @@ extension FiltersViewController: UITableViewDataSource {
 
 extension FiltersViewController: UITableViewDelegate {
     
-    // TODO FIX warning and remove objc, make sure switch cells aren't selectable
     // TODO fix UI changes when distance/sort cells are selected (should be able to select both at the same time)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = tableView.cellForRow(at: indexPath)
@@ -349,10 +344,10 @@ extension FiltersViewController: SwitchCellDelegate {
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
         
-        switch (indexPath.section) {
-        case 0:
+        switch (FilterSection(rawValue:indexPath.section)!) {
+        case FilterSection.deals:
             deals = value
-        default:
+        default: // FilterSection.distance, FilterSection.sort, FilterSection.categories
             switchStates[indexPath.row] = value
         }
     }
