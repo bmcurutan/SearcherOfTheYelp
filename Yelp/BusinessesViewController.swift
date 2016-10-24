@@ -59,7 +59,7 @@ class BusinessesViewController: UIViewController {
     
     fileprivate func doSearch() {
         
-        // tODO remove comment MBProgressHUD.showAdded(to: self.view, animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         
         SearchSettings.sharedInstance.resetFiltersForNewSearch()
         Business.searchWithTerm(term: SearchSettings.sharedInstance.searchString, sort: SearchSettings.sharedInstance.sort, categories: SearchSettings.sharedInstance.categories, deals: SearchSettings.sharedInstance.deals, distance: SearchSettings.sharedInstance.distance, completion: { (businesses: [Business]?, error: Error?) -> Void in
