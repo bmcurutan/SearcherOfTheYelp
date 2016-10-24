@@ -28,7 +28,7 @@ class FiltersViewController: UIViewController {
     
     // Default filter variables
     var deals: Bool = false
-    var selectedDistance: Int = 40000 // Default to Auto, 40000 m
+    var selectedDistance: Int = maxDistance
     var selectedSort: Int = 0
     
     // State variables
@@ -73,8 +73,9 @@ class FiltersViewController: UIViewController {
     
     // MARK: - Private Methods
     
+    // Approximate distances in meters, converted from miles
     fileprivate func yelpDistances() -> [[String:AnyObject]] {
-        return [["name" : "Auto" as AnyObject, "meters" : 40000 as AnyObject],
+        return [["name" : "Auto" as AnyObject, "meters" : maxDistance as AnyObject],
                 ["name" : "0.3 miles" as AnyObject, "meters" : 482 as AnyObject],
                 ["name" : "1 mile" as AnyObject, "meters" : 1609 as AnyObject],
                 ["name" : "5 miles" as AnyObject, "meters" : 8046 as AnyObject],

@@ -8,9 +8,11 @@
 
 import UIKit
 
+let maxDistance = 40000
+
 class SearchSettings {
     
-    static let sharedInstance = SearchSettings(categories: [], deals: false, distance: 40000, searchString: "Restaurants", sort: YelpSortMode.bestMatched)
+    static let sharedInstance = SearchSettings(categories: [], deals: false, distance: maxDistance, searchString: "Restaurants", sort: YelpSortMode.bestMatched)
     
     var categories: [String]!
     var deals: Bool!
@@ -30,7 +32,7 @@ class SearchSettings {
     func resetFiltersForNewSearch() {
         categories = []
         deals = false
-        distance = 40000
+        distance = maxDistance
         sort = YelpSortMode.bestMatched
     }
 }
