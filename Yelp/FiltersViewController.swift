@@ -16,7 +16,7 @@ protocol FiltersViewControllerDelegate: class {
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: SearchSettings)
 }
 
-class FiltersViewController: UIViewController, UITableViewDelegate {
+class FiltersViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: FiltersViewControllerDelegate?
@@ -283,7 +283,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate {
 extension FiltersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch (FilterSection(rawValue:indexPath.section)!) {
+        switch FilterSection(rawValue:indexPath.section)! {
         case FilterSection.deals:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = "Offering a Deal"
@@ -315,11 +315,11 @@ extension FiltersViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch (FilterSection(rawValue: section)!) {
+        switch FilterSection(rawValue: section)! {
         case FilterSection.distance:
             return distances.count
         case FilterSection.sort:
-            return 3
+            return sorts.count
         case FilterSection.categories:
             return 4
         case FilterSection.deals:
@@ -332,7 +332,7 @@ extension FiltersViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch (FilterSection(rawValue: section)!) {
+        switch FilterSection(rawValue: section)! {
         case FilterSection.distance:
             return "Distance"
         case FilterSection.sort:
@@ -340,9 +340,34 @@ extension FiltersViewController: UITableViewDataSource {
         case FilterSection.categories:
             return "Category"
         default: // FilterSection.deals
-            return ""
+            return nil
         }
     }
+}
+
+// MARK: - UITableViewDelegate
+
+extension FiltersViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if nil != self.tableView(tableView, titleForHeaderInSection: section) {
+            return 40
+        }
+        return 0
+    }
+    
+    /*func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if FilterSection.deals != FilterSection(rawValue: section)! {
+            let headerView = UIView(frame: CGRect(origin: CGPoint(x:0, y:0), size: CGSize(width: self.view.frame.width, height: 50)))
+            headerView.backgroundColor = UIColor.darkGray
+            
+            let label = UILabel(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: 30))
+            label.text = self.tableView(tableView, titleForHeaderInSection: section)
+            headerView.addSubview(label)
+            return headerView
+        }
+        return nil
+    }*/
 }
 
 // MARK: - SwitchCellDelegate
@@ -352,7 +377,7 @@ extension FiltersViewController: SwitchCellDelegate {
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
         
-        switch (FilterSection(rawValue:indexPath.section)!) {
+        switch FilterSection(rawValue:indexPath.section)! {
         case FilterSection.deals:
             deals = value
         case FilterSection.distance:
