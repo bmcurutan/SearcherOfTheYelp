@@ -24,15 +24,13 @@ class FiltersViewController: UIViewController {
     // List variables
     var categories: [[String:String]]!
     var distances: [[String:AnyObject]]!
-    var sorts: [String] = ["Best Matched", "Distance", "Highest Rated"]
-    
-    // Default filter variables
-    var deals: Bool = false
-    var selectedSort: Int = 0
+    var sorts: [[String:AnyObject]]!
     
     // State variables
+    var deals: Bool = false
     var distanceStates: [Int:Bool] = [0: true] // Default to Auto
-    var switchStates = [Int:Bool]()
+    var sortStates: [Int:Bool] = [0: true] // Default to Best Matched
+    var categoryStates = [Int:Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +38,9 @@ class FiltersViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        categories = yelpCategories()
         distances = yelpDistances()
+        sorts = yelpSorts()
+        categories = yelpCategories()
     }
     // MARK - IBAction
     
@@ -52,8 +51,17 @@ class FiltersViewController: UIViewController {
     @IBAction func onSearchButton(_ sender: AnyObject) {
         dismiss(animated: true, completion: nil)
         
+        // Deals
         SearchSettings.sharedInstance.deals = deals
-        SearchSettings.sharedInstance.sort = YelpSortMode(rawValue: selectedSort)
+        
+        // Sort
+        SearchSettings.sharedInstance.sort = YelpSortMode.bestMatched
+        for (row, isSelected) in sortStates {
+            if isSelected {
+                SearchSettings.sharedInstance.sort = sorts[row]["sort"] as! YelpSortMode
+                break
+            }
+        }
 
         // Distance 
         SearchSettings.sharedInstance.distance = maxDistance
@@ -66,7 +74,7 @@ class FiltersViewController: UIViewController {
         
         // Categories
         var selectedCategories = [String]()
-        for (row, isSelected) in switchStates {
+        for (row, isSelected) in categoryStates {
             if isSelected {
                 selectedCategories.append(categories[row]["code"]!)
             }
@@ -80,6 +88,12 @@ class FiltersViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    
+    fileprivate func yelpSorts() -> [[String:AnyObject]] {
+        return [["name" : "Best Matched" as AnyObject, "sort" : YelpSortMode.bestMatched as AnyObject],
+                ["name" : "Distance" as AnyObject, "sort" : YelpSortMode.distance as AnyObject],
+                ["name" : "Highest Rated" as AnyObject, "sort" : YelpSortMode.highestRated as AnyObject]]
+    }
     
     // Approximate distances in meters, converted from miles
     fileprivate func yelpDistances() -> [[String:AnyObject]] {
@@ -285,15 +299,17 @@ extension FiltersViewController: UITableViewDataSource {
             return cell
             
         case FilterSection.sort:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SortCell", for: indexPath)
-            cell.textLabel?.text = sorts[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+            cell.switchLabel.text = sorts[indexPath.row]["name"] as? String
+            cell.delegate = self
+            cell.onSwitch.isOn = sortStates[indexPath.row] ?? false
             return cell
             
         case FilterSection.categories:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.switchLabel.text = categories[indexPath.row]["name"]
             cell.delegate = self
-            cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
+            cell.onSwitch.isOn = categoryStates[indexPath.row] ?? false
             return cell
         }
     }
@@ -361,13 +377,15 @@ extension FiltersViewController: SwitchCellDelegate {
         case FilterSection.deals:
             deals = value
         case FilterSection.distance:
-            distanceStates = [Int:Bool]() // Reset distanceStates
+            distanceStates = [Int:Bool]() // Reset distance states
             distanceStates[indexPath.row] = value
             tableView.reloadSections(NSIndexSet(index: FilterSection.distance.rawValue) as IndexSet, with: .none)
+        case FilterSection.sort:
+            sortStates = [Int:Bool]() // Reset sort states
+            sortStates[indexPath.row] = value
+            tableView.reloadSections(NSIndexSet(index: FilterSection.sort.rawValue) as IndexSet, with: .none)
         case FilterSection.categories:
-            switchStates[indexPath.row] = value
-        default:
-            break
+            categoryStates[indexPath.row] = value
         }
     }
 }
